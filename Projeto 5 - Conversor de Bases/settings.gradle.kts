@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Calculo de Idade"
+rootProject.name = "AppConversor"
 include(":app")
