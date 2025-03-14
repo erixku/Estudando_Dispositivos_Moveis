@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <Spinner
-        android:id="@+id/spBaseOrigem"
+        android:id="@+id/spBaseOriginal"
         android:layout_width="193dp"
         android:layout_height="34dp"
         android:layout_marginStart="108dp"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toBottomOf="@+id/edNumero" />
 
     <Spinner
-        android:id="@+id/spBaseDestino"
+        android:id="@+id/spBaseConvertida"
         android:layout_width="0dp"
         android:layout_height="34dp"
         android:layout_marginStart="107dp"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spBaseOrigem" />
+        app:layout_constraintTop_toBottomOf="@+id/spBaseOriginal" />
 
     <Button
         android:id="@+id/btConverter"
@@ -40,13 +40,13 @@
         android:layout_marginStart="148dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="152dp"
-        android:backgroundTint="#02C57A"
+        android:backgroundTint="@color/design_default_color_error"
         android:text="Converter"
         app:flow_horizontalAlign="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spBaseDestino" />
+        app:layout_constraintTop_toBottomOf="@+id/spBaseConvertida" />
 
     <TextView
         android:id="@+id/tvResultado"
@@ -54,23 +54,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="200dp"
-        android:text="..."
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/btConverter" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="34dp"
-        android:text="Resultado:"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/tvResultado"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btConverter" />
 
     <TextView
@@ -78,21 +63,21 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="65dp"
-        android:layout_marginTop="258dp"
+        android:layout_marginTop="25dp"
         android:text="Base 1"
-        app:layout_constraintEnd_toStartOf="@+id/spBaseOrigem"
+        app:layout_constraintEnd_toStartOf="@+id/spBaseOriginal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/edNumero" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="65dp"
-        android:layout_marginTop="47dp"
+        android:layout_marginTop="45dp"
         android:layout_marginEnd="1dp"
         android:text="Base 2"
-        app:layout_constraintEnd_toStartOf="@+id/spBaseDestino"
+        app:layout_constraintEnd_toStartOf="@+id/spBaseConvertida"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -101,11 +86,26 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="104dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="97dp"
         android:ems="10"
-        android:hint="Digite o valor aqui..."
+        android:hint="Digite o valor...."
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="202dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:text="Conversor de Bases"
+        android:textColor="@color/design_default_color_error"
+        android:textColorHighlight="@color/design_default_color_error"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

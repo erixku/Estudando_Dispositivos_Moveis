@@ -34,20 +34,20 @@ public class MainActivity extends AppCompatActivity {
         btCalcular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double altura, peso, result;
-                String imc;
+                double a, p, resultado;
 
-                altura = Double.parseDouble(edAltura.getText().toString());
-                peso = Double.parseDouble(edPeso.getText().toString());
+                a = Double.parseDouble(edAltura.getText().toString());
+                p = Double.parseDouble(edPeso.getText().toString());
 
-                result = peso/(Math.pow(altura, 2));
-                tvResultadoNum.setText(String.valueOf(result));
+                resultado = p/(Math.pow(a, 2));
 
-                if (result < 18.5) {
-                    tvResultado.setText("Abaixo do Peso");
-                } else if (result <= 24.99) {
+                tvResultadoNum.setText(String.format("%.2f",resultado));
+
+                if (resultado < 18.5) {
+                    tvResultado.setText("Abaixo do Peso Ideal");
+                } else if (resultado <= 24.99) {
                     tvResultado.setText("Peso ideal");
-                } else if (result <= 29.99) {
+                } else if (resultado <= 29.99) {
                     tvResultado.setText("Sobrepeso");
                 } else {
                     tvResultado.setText("Odesidade");

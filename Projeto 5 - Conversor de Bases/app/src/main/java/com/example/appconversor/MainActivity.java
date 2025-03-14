@@ -1,4 +1,4 @@
-package com.example.conversor;
+package com.example.appconversor;
 
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     EditText edNumero;
-    Spinner spBaseOrigem, spBaseDestino;
+    Spinner spBaseOriginal, spBaseConvertida;
     Button btConverter;
     TextView tvResultado;
 
@@ -24,16 +24,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         edNumero = findViewById(R.id.edNumero);
-        spBaseOrigem = findViewById(R.id.spBaseOrigem);
-        spBaseDestino = findViewById(R.id.spBaseDestino);
+        spBaseOriginal = findViewById(R.id.spBaseOriginal);
+        spBaseConvertida = findViewById(R.id.spBaseConvertida);
         btConverter = findViewById(R.id.btConverter);
         tvResultado = findViewById(R.id.tvResultado);
 
         String[] bases = {"Decimal", "Binário", "Octal", "Hexadecimal"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, bases);
-        spBaseOrigem.setAdapter(adapter);
-        spBaseDestino.setAdapter(adapter);
+        spBaseOriginal.setAdapter(adapter);
+        spBaseConvertida.setAdapter(adapter);
 
         btConverter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,14 +50,14 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        String baseOrigem = spBaseOrigem.getSelectedItem().toString();
-        String baseDestino = spBaseDestino.getSelectedItem().toString();
+        String baseOriginal = spBaseOriginal.getSelectedItem().toString();
+        String baseConvertida = spBaseConvertida.getSelectedItem().toString();
         String resultado = "";
 
         try {
             int numeroConvertido;
 
-            switch (baseOrigem) {
+            switch (baseOriginal) {
                 case "Decimal":
                     numeroConvertido = Integer.parseInt(numero);
                     break;
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
             }
 
-            switch (baseDestino) {
+            switch (baseConvertida) {
                 case "Decimal":
                     resultado = String.valueOf(numeroConvertido);
                     break;

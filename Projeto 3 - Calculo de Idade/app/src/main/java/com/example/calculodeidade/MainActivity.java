@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity {
 
     private EditText edNome, edDataNascimento;
-    private Button btnCalcular;
+    private Button btCalcular;
     private TextView tvResultado;
 
     @Override
@@ -33,10 +33,10 @@ public class MainActivity extends AppCompatActivity {
 
         edNome = findViewById(R.id.edNome);
         edDataNascimento = findViewById(R.id.edDataNascimento);
-        btnCalcular = findViewById(R.id.btCalcular);
+        btCalcular = findViewById(R.id.btCalcular);
         tvResultado = findViewById(R.id.tvResultado);
 
-        btnCalcular.setOnClickListener(new View.OnClickListener() {
+        btCalcular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 calcularIdade();
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             long minutos = TimeUnit.MILLISECONDS.toMinutes(diferencaMillis);
             long segundos = TimeUnit.MILLISECONDS.toSeconds(diferencaMillis);
 
-            String resultado = "Olá, " + nome + "!\n" +
+            String resultado = "Oie, " + nome + "!\n" +
                     "Sua idade é:\n" +
                     anos + " anos\n" +
                     meses + " meses\n" +
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             tvResultado.setText(resultado);
 
         } catch (Exception e) {
-            tvResultado.setText("Erro: Insira a data no formato correto (dd/MM/yyyy)");
+            tvResultado.setText("Erro");
         }
 
 

@@ -12,146 +12,137 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="166dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="76dp"
         android:layout_marginEnd="187dp"
-        android:text="Calculo Média Final"
+        android:fontFamily="serif"
+        android:text="Cálculo Média Final"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="34sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.464"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btCalcular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
+        android:layout_width="175dp"
+        android:layout_height="43dp"
         android:layout_marginTop="112dp"
-        android:layout_marginEnd="161dp"
-        android:text="Button"
+        android:backgroundTint="@color/design_default_color_error"
+        android:text="Calcular"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etNota3" />
 
-    <TextView
-        android:id="@+id/tvNota1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="40dp"
-        android:text="Nota 1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCal" />
-
-    <TextView
-        android:id="@+id/tvNota2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="52dp"
-        android:text="Nota 2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNota1" />
-
-    <TextView
-        android:id="@+id/tvNota3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="52dp"
-        android:text="Nota 3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNota2" />
-
-    <EditText
-        android:id="@+id/etNota1"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="40dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.132"
-        app:layout_constraintStart_toEndOf="@+id/tvNota1"
-        app:layout_constraintTop_toBottomOf="@+id/tvCal" />
-
-    <EditText
-        android:id="@+id/etNota2"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="40dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.132"
-        app:layout_constraintStart_toEndOf="@+id/tvNota2"
-        app:layout_constraintTop_toBottomOf="@+id/etNota1" />
-
     <EditText
         android:id="@+id/etNota3"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="128dp"
+        android:layout_width="149dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:inputType="text"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/tvNota3"
         app:layout_constraintTop_toBottomOf="@+id/etNota2" />
 
     <TextView
-        android:id="@+id/tvSaida"
+        android:id="@+id/tvNota3"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="48dp"
+        android:text="Nota 3:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNota2" />
+
+    <TextView
+        android:id="@+id/tvNota2"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="52dp"
+        android:text="Nota 2:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNota1" />
+
+    <EditText
+        android:id="@+id/etFaltas"
+        android:layout_width="143dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/tvTituloFaltas"
+        app:layout_constraintTop_toBottomOf="@+id/etNota3" />
+
+    <EditText
+        android:id="@+id/etNota2"
+        android:layout_width="149dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/tvNota2"
+        app:layout_constraintTop_toBottomOf="@+id/etNota1" />
+
+    <EditText
+        android:id="@+id/etNota1"
+        android:layout_width="146dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="56dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/tvNota1"
+        app:layout_constraintTop_toBottomOf="@+id/tvCal" />
+
+    <TextView
+        android:id="@+id/tvNota1"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="68dp"
+        android:text="Nota 1: "
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCal" />
+
+    <TextView
+        android:id="@+id/tvTituloFaltas"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="52dp"
+        android:text="Faltas:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNota3" />
+
+    <TextView
+        android:id="@+id/tvResultado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="178dp"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="176dp"
-        android:layout_marginBottom="232dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.474"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btCalcular"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCalculo" />
 
     <TextView
         android:id="@+id/tvCalculo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="177dp"
-        android:text="TextView"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.474"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btCalcular" />
-
-    <TextView
-        android:id="@+id/tvFalta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Faltas"
-        tools:layout_editor_absoluteX="57dp"
-        tools:layout_editor_absoluteY="345dp" />
-
-    <EditText
-        android:id="@+id/etFaltas"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="40dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/tvFalta"
-        app:layout_constraintTop_toBottomOf="@+id/etNota3" />
 
     <TextView
         android:id="@+id/tvFaltas"
@@ -161,10 +152,19 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="177dp"
         android:layout_marginBottom="149dp"
-        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCalculo" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="576dp"
+        android:text="Média: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

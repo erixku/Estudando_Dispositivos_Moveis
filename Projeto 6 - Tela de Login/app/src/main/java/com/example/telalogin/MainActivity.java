@@ -1,6 +1,5 @@
 package com.example.telalogin;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,9 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
 
     Button btLogin;
-    EditText etUser, etSenha;
-
-    TextView tvResul;
+    EditText edUser, edSenha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
         btLogin   = (Button) findViewById(R.id.btLogin);
 
-        etUser = (EditText) findViewById(R.id.etUser);
-        etSenha      = (EditText) findViewById(R.id.etSenha);
-
-        tvResul = (TextView) findViewById(R.id.tvResul);
+        edUser = (EditText) findViewById(R.id.edUser);
+        edSenha = (EditText) findViewById(R.id.edSenha);
 
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
                 int senha;
                 String login;
 
-                senha  = Integer.parseInt(etSenha.getText().toString());
-                login = etUser.getText().toString();
+                senha  = Integer.parseInt(edSenha.getText().toString());
+                login = edUser.getText().toString();
 
 
-                if (senha == 123 && login.equals("Fatec")) {
+                if (senha == 123 && login.equals("Usuario")) {
                     Intent telacadastro;
                     telacadastro = new Intent(MainActivity.this,CadastroActivity.class);
                     startActivity(telacadastro);

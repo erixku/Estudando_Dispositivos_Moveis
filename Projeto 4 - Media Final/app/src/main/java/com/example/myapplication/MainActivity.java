@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button btCalcular;
     EditText etNota1, etNota2, etNota3, etFaltas;
-    TextView tvCalculo, tvSaida, tvFaltas;
+    TextView tvCalculo, tvResultado, tvFaltas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         etFaltas  = (EditText) findViewById(R.id.etFaltas);
 
         tvCalculo      = (TextView) findViewById(R.id.tvCalculo);
-        tvSaida   = (TextView) findViewById(R.id.tvSaida);
+        tvResultado   = (TextView) findViewById(R.id.tvResultado);
         tvFaltas   = (TextView) findViewById(R.id.tvFaltas);
 
 
@@ -44,21 +44,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 double nota1, nota2, nota3, media;
                 int faltas;
-                String result;
 
                 nota1  = Double.parseDouble(etNota1.getText().toString());
                 nota2  = Double.parseDouble(etNota2.getText().toString());
                 nota3  = Double.parseDouble(etNota3.getText().toString());
                 faltas = Integer.parseInt(etFaltas.getText().toString());
                 media  = (nota1 + nota2 + nota3) / 3;
-                tvSaida.setText(String.valueOf(media));
+                tvCalculo.setText(String.format("%.2f",media));
 
-                // tvSituacao.setText("Aprovado".toString());
-                if (media >= 7 && faltas <= 5) {
-                    tvFaltas.setText("Aprovado");
+                if (media >= 6 && faltas <= 5) {
+                    tvResultado.setText("Aprovado");
                 }
                 else {
-                    tvFaltas.setText("Retido");
+                    tvResultado.setText("Reprovado");
                 }
             }
         });

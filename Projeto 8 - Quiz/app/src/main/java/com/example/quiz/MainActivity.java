@@ -21,32 +21,32 @@ public class MainActivity extends AppCompatActivity {
     private Button btProximo;
 
     private String[] questions = {
-            "1. Qual linguagem é usada no Android Studio?",
-            "2. Qual banco de dados é nativo do Android?",
-            "3. Qual comando SQL é usado para recuperar dados?",
-            "4. O que significa IDE?",
-            "5. Qual estrutura de repetição em Java?",
-            "6. O que é uma chave primária em um banco de dados?",
-            "7. Qual método cria a interface do usuário no Android?",
-            "8. O que é um Fragment no Android?",
-            "9. Como se chama um banco de dados não relacional?",
-            "10. O que significa API?"
+            "1. Qual das seguintes estruturas de dados é baseada no princípio (o ultimo a entrar, primeiro a sair - LIFO)?",
+            "2. Qual é o nome do conceito que define a reutilização de código em Programação Orientada a Objetos?",
+            "3. Qual termo descreve um erro inesperado durante a execução de um programa??",
+            "4. Qual é o nome do tipo de dado que só pode armazenar valores verdadeiros ou falsos",
+            "5. Que estrutura de repetição verifica a condição antes de executar o bloco de código?",
+            "6. Qual conceito define a ocultação de detalhes internos de um objeto e a exposição apenas do necessário?",
+            "7. Qual nome é dado a um algoritmo que divide um problema em partes menores e resolve cada uma separadamente?",
+            "8. Qual estrutura de dados é organizada em forma de classificação com nós e arestas?",
+            "9. Qual é o nome do processo de otimização que melhora a eficiência do código removendo redundâncias?",
+            "10. Que tipo de erro ocorre quando o programa tenta acessar uma posição de memória inválida?"
     };
 
     private String[][] options = {
-            {"Java", "Python", "C++", "PHP"},
-            {"SQLite", "PostgreSQL", "MongoDB", "MySQL"},
-            {"SELECT", "INSERT", "DELETE", "UPDATE"},
-            {"Interface de Desenvolvimento", "Ambiente de Execução", "Sistema Operacional", "Nenhuma das anteriores"},
-            {"for", "if", "switch", "return"},
-            {"Identificador único", "Tabela de dados", "Código fonte", "Interface gráfica"},
-            {"onCreate()", "main()", "init()", "setup()"},
-            {"Parte do layout", "Um botão", "Uma imagem", "Nenhuma das anteriores"},
-            {"SQL", "MongoDB", "JSON", "Firebase"},
-            {"Interface de Programação", "Código de Execução", "Aplicação Web", "Protocolo de Internet"}
+            {"Fila", "Lista", "Pilha", "Árvore"},
+            {"Polimorfismo", "Herança", "Abstração", "Recursão"},
+            {"Exceção", "Overflow", "Buffer", "Recursão"},
+            {"Inteiro", "Booleano", "String", "Float"},
+            {"For", "While", "Do-while", "Switch"},
+            {"Encapsulação", "Abstração", "Herança", "Composição"},
+            {"Iteração", "Recursão", "Polimorfismo", "Compilação"},
+            {"Grafo", "Árvore", "Pilha", "Fila"},
+            {"Depuração", "Compilação", "Refatoração", "Análise"},
+            {"Overflow", "Segmentação", "Underflow", "Exceção"}
     };
 
-    private int[] correctAnswers = {0, 0, 0, 0, 0, 0, 0, 0, 1, 0}; // Índices das respostas corretas
+    private int[] correctAnswers = {2, 1, 0, 1, 1, 0, 1, 1, 2, 1};
 
     private int currentQuestion = 0;
     private int score = 0;
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         currentQuestion++;
         loadQuestion();
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;

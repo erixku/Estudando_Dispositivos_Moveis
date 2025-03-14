@@ -1,12 +1,14 @@
 package com.example.loteria;
 
 import android.os.Bundle;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,10 +17,6 @@ import java.util.Random;
 import java.util.Set;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,17 +37,25 @@ public class MainActivity extends AppCompatActivity {
         btLotofacil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gerarAposta(15, 25); // Lotofácil: 15 números de 1 a 25
+                gerarAposta(15, 25);
             }
         });
 
         btMegasena.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gerarAposta(6, 60); // Mega-Sena: 6 números de 1 a 60
+                gerarAposta(6, 60);
             }
         });
 
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content), (v, insets) ->{
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+    }
+
+    // Método corrigido: agora está fora do onCreate
     private void gerarAposta(int quantidade, int maxNumero) {
         Set<Integer> numerosSorteados = new HashSet<>();
         while (numerosSorteados.size() < quantidade) {
@@ -58,15 +64,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ArrayList<Integer> listaNumeros = new ArrayList<>(numerosSorteados);
-        Collections.sort(listaNumeros); // Ordena os números gerados
+        Collections.sort(listaNumeros);
 
         tvResultado.setText("Números: " + listaNumeros.toString());
-    }
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
     }
 }
