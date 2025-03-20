@@ -13,6 +13,9 @@
         android:theme="@style/Theme.AppTotal"
         tools:targetApi="31">
         <activity
+            android:name=".IMCActivity"
+            android:exported="false" />
+        <activity
             android:name=".MenuActivity"
             android:exported="false" />
         <activity

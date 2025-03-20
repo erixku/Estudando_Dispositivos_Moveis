@@ -22,15 +22,16 @@
             android:layout_width="919dp"
             android:layout_height="1127dp"
             android:scaleType="fitXY"
-            app:srcCompat="@mipmap/circulo"
-            tools:layout_editor_absoluteX="-263dp"
-            tools:layout_editor_absoluteY="-65dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/circulo" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="176dp"
+            android:layout_marginTop="180dp"
             android:text="Menu"
             android:textColor="#000000"
             android:textSize="24sp"
@@ -40,43 +41,55 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btIMC"
             android:layout_width="203dp"
             android:layout_height="44dp"
+            android:layout_marginTop="40dp"
             android:backgroundTint="#0B0B0B"
             android:text="IMC"
+            android:textColor="#FFFFFF"
             app:cornerRadius="8dp"
-            tools:layout_editor_absoluteX="95dp"
-            tools:layout_editor_absoluteY="261dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="203dp"
-            android:layout_height="44dp"
-            android:backgroundTint="#050505"
-            android:text="Idade"
-            app:cornerRadius="8dp"
-            tools:layout_editor_absoluteX="95dp"
-            tools:layout_editor_absoluteY="370dp" />
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="203dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="74dp"
+        android:backgroundTint="#050505"
+        android:text="Idade"
+        android:textColor="#FFFFFF"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/btIMC" />
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="203dp"
-            android:layout_height="44dp"
-            android:backgroundTint="#090909"
-            android:text="Binário"
-            app:cornerRadius="8dp"
-            tools:layout_editor_absoluteX="95dp"
-            tools:layout_editor_absoluteY="470dp" />
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="203dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="56dp"
+        android:backgroundTint="#090909"
+        android:text="Binário"
+        android:textColor="#FFFFFF"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
 
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="203dp"
-            android:layout_height="44dp"
-            android:backgroundTint="#1F0E3E"
-            android:text="Finalizar"
-            app:cornerRadius="8dp"
-            tools:layout_editor_absoluteX="95dp"
-            tools:layout_editor_absoluteY="586dp" />
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="203dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="72dp"
+        android:backgroundTint="#1F0E3E"
+        android:text="Finalizar"
+        android:textColor="#FFFFFF"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
