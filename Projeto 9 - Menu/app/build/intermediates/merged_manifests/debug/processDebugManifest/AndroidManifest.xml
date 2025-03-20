@@ -21,17 +21,29 @@
         android:debuggable="true"
         android:extractNativeLibs="false"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/bob_circle"
+        android:icon="@mipmap/bob"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/bob_circle"
+        android:roundIcon="@mipmap/bob"
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/Theme.Menu" >
         <activity
-            android:name="com.example.menu.MainActivity"
+            android:name="com.example.menu.ConversorActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.menu.InicioActivity"
+            android:name="com.example.menu.MediaActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.menu.IMCActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.menu.MenuActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.menu.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.menu.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

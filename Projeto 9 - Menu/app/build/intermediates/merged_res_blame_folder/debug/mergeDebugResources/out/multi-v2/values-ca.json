@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.menu.app-mergeDebugResources-31:/values-ca/values-ca.xml",
+            "outputFile": "com.example.menu.app-mergeDebugResources-30:/values-ca/values-ca.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\2830482311021\\.gradle\\caches\\8.10.2\\transforms\\38ab1ac7f39799709a2ce2fc1ea1191c\\transformed\\material-1.12.0\\res\\values-ca\\values-ca.xml",
+                    "source": "C:\\Users\\limber\\.gradle\\caches\\8.10.2\\transforms\\79c099299667b81bd03c8cc13437c017\\transformed\\material-1.12.0\\res\\values-ca\\values-ca.xml",
                     "from": {
                         "startLines": "2,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\2830482311021\\.gradle\\caches\\8.10.2\\transforms\\7d097e549d2b893f340afe16f39994e2\\transformed\\appcompat-1.7.0\\res\\values-ca\\values-ca.xml",
+                    "source": "C:\\Users\\limber\\.gradle\\caches\\8.10.2\\transforms\\875e417ce37b021efa32ab99d07cde4d\\transformed\\appcompat-1.7.0\\res\\values-ca\\values-ca.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -40,7 +40,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\2830482311021\\.gradle\\caches\\8.10.2\\transforms\\717b016e3678e40e7e6b9391a3ce414a\\transformed\\core-1.13.0\\res\\values-ca\\values-ca.xml",
+                    "source": "C:\\Users\\limber\\.gradle\\caches\\8.10.2\\transforms\\cdf31520ed56cf2f4a2ad537fb548908\\transformed\\core-1.13.0\\res\\values-ca\\values-ca.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
