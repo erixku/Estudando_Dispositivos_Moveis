@@ -31,8 +31,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="0.00"
         android:inputType="numberDecimal"
-        android:text="0.00"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/edPeso" />
 
@@ -43,8 +43,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="52dp"
         android:ems="10"
+        android:hint="0.00"
         android:inputType="numberDecimal"
-        android:text="0.00"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -79,6 +79,7 @@
         android:layout_marginEnd="146dp"
         android:backgroundTint="#8E0A0A"
         android:text="CALCULAR"
+        android:textColor="#FFFFFF"
         android:textColorHighlight="@color/design_default_color_error"
         android:textColorHint="@color/design_default_color_error"
         app:layout_constraintEnd_toEndOf="parent"

@@ -13,7 +13,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MenuActivity extends AppCompatActivity {
-    Button btIMC;
+    Button btIMC, btIdade, btConversor, btFinalizar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,8 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         btIMC = findViewById(R.id.btIMC);
+        btIdade = findViewById(R.id.btIdade);
+        btConversor = findViewById(R.id.btConversor);
 
         btIMC.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,6 +33,26 @@ public class MenuActivity extends AppCompatActivity {
                 IMC = new Intent(MenuActivity.this, IMCActivity.class);
                 startActivity(IMC);
                // finish();
+            }
+        });
+
+        btIdade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent idade;
+                idade = new Intent(MenuActivity.this, IdadeActivity.class);
+                startActivity(idade);
+                // finish();
+            }
+        });
+
+        btConversor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent conversor;
+                conversor = new Intent(MenuActivity.this, ConversorActivity.class);
+                startActivity(conversor);
+                // finish();
             }
         });
 

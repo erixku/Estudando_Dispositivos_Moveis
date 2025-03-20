@@ -54,7 +54,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btIdade"
         android:layout_width="203dp"
         android:layout_height="44dp"
         android:layout_marginTop="74dp"
@@ -67,7 +67,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btIMC" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btConversor"
         android:layout_width="203dp"
         android:layout_height="44dp"
         android:layout_marginTop="56dp"
@@ -77,10 +77,10 @@
         app:cornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/btIdade" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/btFinalizar"
         android:layout_width="203dp"
         android:layout_height="44dp"
         android:layout_marginTop="72dp"
@@ -90,6 +90,6 @@
         app:cornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintTop_toBottomOf="@+id/btConversor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
