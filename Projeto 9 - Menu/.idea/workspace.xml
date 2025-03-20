@@ -26,17 +26,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff194d76-0420-47c7-b40d-5f3bf0c4a660" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu/InicioActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu/LoginActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_inicio.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/bob.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/bob_circle.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Projeto 6 - Tela de Login/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Projeto 6 - Tela de Login/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Projeto 7 - Loteria/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Projeto 7 - Loteria/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Projeto 7 - Loteria/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Projeto 7 - Loteria/.idea/misc.xml" afterDir="false" />
-    </list>
+    <list default="true" id="ff194d76-0420-47c7-b40d-5f3bf0c4a660" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -67,12 +57,12 @@
     &quot;assignee&quot;: &quot;erixku&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/erixku/Estudando_Dispositivos_Moveis.git&quot;,
-    &quot;accountId&quot;: &quot;31726e76-6350-4d74-9048-31ffc0fe19f1&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/erixku/Estudando_Dispositivos_Moveis",
+    "accountId": "31726e76-6350-4d74-9048-31ffc0fe19f1"
   }
-}</component>
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -92,7 +82,7 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "erixku",
     "kotlin-language-version-configured": "true",
     "settings.editor.selected.configurable": "AndroidSdkUpdater"
   }
