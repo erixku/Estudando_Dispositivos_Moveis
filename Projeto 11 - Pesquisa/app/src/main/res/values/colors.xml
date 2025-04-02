@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="problem_1">#F44336</color>  <!-- Vermelho -->
+    <color name="problem_2">#2196F3</color>  <!-- Azul -->
+    <color name="problem_3">#4CAF50</color>  <!-- Verde -->
+    <color name="problem_4">#FFC107</color>  <!-- Amarelo -->
+    <color name="problem_5">#9C27B0</color>  <!-- Roxo -->
+    <color name="problem_6">#FF5722</color>  <!-- Laranja -->
 </resources>

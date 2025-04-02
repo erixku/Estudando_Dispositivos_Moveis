@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import android.widget.Toast;
 import android.widget.EditText;
 import android.widget.Button;
 
@@ -15,8 +16,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button btLogin;
     EditText edLogin, edSenha;
+    Button btLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,25 +32,22 @@ public class LoginActivity extends AppCompatActivity {
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String login[] = {"Pesquisador", "Administrador"};
-                String senha[] = {"123", "admin"};
-                String acesso = edLogin.getText().toString();
-                String pwd = edSenha.getText().toString();
+                String opcao[] = {"Administrador", "Pesquisador"};
+                String senhas[] = {"admin", "pesq"};
+                String user = edLogin.getText().toString();
+                String senha = edSenha.getText().toString();
 
-                for(int i = 0; i < login.length; i++) {
-                    if(acesso.equals("Administrador") && pwd.equals("admin")) {
-                        Intent menu = new Intent(LoginActivity.this, MenuAdminActivity.class);
-                        startActivity(menu);
-                        finish();
-                    } else if(acesso.equals("Pesquisador") && pwd.equals("123")){
-                        Intent menu = new Intent(LoginActivity.this, MenuPesqActivity.class);
-                        startActivity(menu);
-                        finish();
+                for(int i = 0; i < opcao.length; i++) {
+                    if(opcao.equals("Administrador") && senhas.equals("admin")) {
+                        Intent admin = new Intent(LoginActivity.this, AdminActivity.class);
+                        startActivity(admin);
+                    } else if(opcao.equals("Administrador") && senhas.equals("admin")) {
+                        Intent pesq = new Intent(LoginActivity.this, PesqActivity.class);
+                        startActivity(pesq);
                     }
                 }
             }
         });
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

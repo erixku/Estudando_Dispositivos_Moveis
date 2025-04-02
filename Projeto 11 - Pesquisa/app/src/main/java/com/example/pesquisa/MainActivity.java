@@ -1,9 +1,8 @@
 package com.example.pesquisa;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.content.Intent;
 import android.os.Handler;
-import android.os.Looper;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,8 +18,7 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        // Delay para abrir outra tela
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+        new Handler().postDelayed(() -> {
             Intent login = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(login);
             finish();
