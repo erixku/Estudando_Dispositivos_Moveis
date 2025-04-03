@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Pesquisa"
         tools:targetApi="31">
         <activity
+            android:name=".ProbActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EstiActivity"
+            android:exported="false" />
+        <activity
             android:name=".ResultActivity"
             android:exported="false" />
         <activity

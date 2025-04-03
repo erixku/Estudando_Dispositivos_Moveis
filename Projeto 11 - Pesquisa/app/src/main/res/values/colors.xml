@@ -2,6 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="primary_color">#134DB0</color>
+    <color name="selected_color">#5178B7</color>
     <color name="problem_1">#F44336</color>  <!-- Vermelho -->
     <color name="problem_2">#2196F3</color>  <!-- Azul -->
     <color name="problem_3">#4CAF50</color>  <!-- Verde -->

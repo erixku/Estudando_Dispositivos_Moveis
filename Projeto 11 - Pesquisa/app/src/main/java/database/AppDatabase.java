@@ -1,3 +1,5 @@
+package database;
+
 import android.content.Context;
 
 import androidx.room.Room;
@@ -8,7 +10,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract EntrevistadoDAO entrevistadoDAO();
     public abstract PesquisaDAO pesquisaDAO();
 
-    private static volatile AppDatabase INSTANCE;
+    public static volatile AppDatabase INSTANCE;
 
     public static AppDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {

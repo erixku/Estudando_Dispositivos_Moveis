@@ -10,7 +10,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Database;
+
+import database.AppDatabase;
+import database.ResultadoVoto;
+import database.ResultadoEspontaneo;
+import database.ResultadoProblema;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +22,7 @@ import java.util.Map;
 
 public class ResultActivity extends AppCompatActivity {
 
-    private AppDatabase db;
+    public AppDatabase db;
     private TextView totalRespondents, totalVotes;
     private RecyclerView spontaneousRecycler, stimulatedRecycler, problemsRecycler;
 
@@ -32,7 +36,7 @@ public class ResultActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_result);
 
-        db = AppDatabase;
+        db = AppDatabase.getDatabase(this);
         totalRespondents = findViewById(R.id.total_respondents);
         totalVotes = findViewById(R.id.total_votes);
 
@@ -65,21 +69,23 @@ public class ResultActivity extends AppCompatActivity {
         // Problemas
         problemsRecycler = findViewById(R.id.problems_recycler);
         problemsRecycler.setLayoutManager(new LinearLayoutManager(this));
-        problemsAdapter = new ProblemsAdapter();
+        problemsAdapter = new ProblemsAdapter(this);
         problemsRecycler.setAdapter(problemsAdapter);
     }
 
     private void loadDashboardData() {
         // Carregar totais
-        db.EntrevistadoDAO().getTotalRespondents().observe(this, count -> {
+        db.entrevistadoDAO().getTodosEntrevistados().observe(this, count -> {
             totalRespondents.setText("Respondentes: " + count);
         });
 
         // Carregar votos espontâneos
-        db.PesquisaDAO().getSpontaneousVotesCount().observe(this, votes -> {
+        db.pesquisaDAO().getVotosEspontaneos().observe(this, votes -> {
             List<VotesAdapter.VoteItem> voteItems = new ArrayList<>();
-            for (Map.Entry<String, Integer> entry : votes.entrySet()) {
-                voteItems.add(new VotesAdapter.VoteItem(entry.getKey(), entry.getValue()));
+            if (votes != null) {
+                for (ResultadoEspontaneo vote : votes) {
+                    voteItems.add(new VotesAdapter.VoteItem(vote.esp_candidato, vote.count));
+                }
             }
             spontaneousAdapter.setVotes(voteItems);
 
@@ -89,28 +95,38 @@ public class ResultActivity extends AppCompatActivity {
         });
 
         // Carregar votos estimulados
-        db.PesquisaDAO().getStimulatedVotesCount().observe(this, votes -> {
+        db.pesquisaDAO().getVotosEstimulados().observe(this, votes -> {
             List<VotesAdapter.VoteItem> voteItems = new ArrayList<>();
 
+            int[] contagens = new int[9]; // Índices 1-8
+            if (votes != null) {
+                for (ResultadoVoto vote : votes) {
+                    if (vote.est_id >= 1 && vote.est_id <= 8) {
+                        contagens[vote.est_id] = vote.count;
+                    }
+                }
+            }
+
             // Mapear IDs para nomes fictícios
-            voteItems.add(new VotesAdapter.VoteItem("Candidato 1", votes.getOrDefault(1, 0)));
-            voteItems.add(new VotesAdapter.VoteItem("Candidato 2", votes.getOrDefault(2, 0)));
-            voteItems.add(new VotesAdapter.VoteItem("Candidato 3", votes.getOrDefault(3, 0)));
-            voteItems.add(new VotesAdapter.VoteItem("Candidato 4", votes.getOrDefault(4, 0)));
-            voteItems.add(new VotesAdapter.VoteItem("Candidato 5", votes.getOrDefault(5, 0)));
-            voteItems.add(new VotesAdapter.VoteItem("Branco", votes.getOrDefault(6, 0)));
-            voteItems.add(new VotesAdapter.VoteItem("Nulo", votes.getOrDefault(7, 0)));
-            voteItems.add(new VotesAdapter.VoteItem("Não sabe", votes.getOrDefault(8, 0)));
+            voteItems.add(new VotesAdapter.VoteItem("Candidato 1", contagens[1]));
+            voteItems.add(new VotesAdapter.VoteItem("Candidato 2", contagens[2]));
+            voteItems.add(new VotesAdapter.VoteItem("Candidato 3", contagens[3]));
+            voteItems.add(new VotesAdapter.VoteItem("Candidato 4", contagens[4]));
+            voteItems.add(new VotesAdapter.VoteItem("Candidato 5", contagens[5]));
+            voteItems.add(new VotesAdapter.VoteItem("Branco", contagens[6]));
+            voteItems.add(new VotesAdapter.VoteItem("Nulo", contagens[7]));
+            voteItems.add(new VotesAdapter.VoteItem("Não sabe", contagens[8]));
 
             stimulatedAdapter.setVotes(voteItems);
         });
 
         // Carregar problemas
-        db.PesquisaDAO().getProblemsStatistics().observe(this, problems -> {
+        db.pesquisaDAO().getEstatisticaProblema().observe(this, problems -> {
             List<ProblemsAdapter.ProblemItem> problemItems = new ArrayList<>();
-            for (Map.Entry<Integer, Integer> entry : problems.entrySet()) {
-                String problemName = getProblemName(entry.getKey());
-                problemItems.add(new ProblemsAdapter.ProblemItem(problemName, entry.getValue()));
+            if (problems != null) {
+                for (ResultadoProblema problem : problems) {
+                    problemItems.add(new ProblemsAdapter.ProblemItem(problem.prob_nome, problem.contagem));
+                }
             }
             problemsAdapter.setProblems(problemItems);
         });
@@ -129,4 +145,3 @@ public class ResultActivity extends AppCompatActivity {
             }
         }
     }
-}

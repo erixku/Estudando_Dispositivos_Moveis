@@ -32,19 +32,17 @@ public class LoginActivity extends AppCompatActivity {
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String opcao[] = {"Administrador", "Pesquisador"};
+                String opcao[] = {"admin", "Pesquisador"};
                 String senhas[] = {"admin", "pesq"};
-                String user = edLogin.getText().toString();
-                String senha = edSenha.getText().toString();
+                String user = edLogin.getText().toString().trim();
+                String senha = edSenha.getText().toString().trim();
 
-                for(int i = 0; i < opcao.length; i++) {
-                    if(opcao.equals("Administrador") && senhas.equals("admin")) {
-                        Intent admin = new Intent(LoginActivity.this, AdminActivity.class);
-                        startActivity(admin);
-                    } else if(opcao.equals("Administrador") && senhas.equals("admin")) {
-                        Intent pesq = new Intent(LoginActivity.this, PesqActivity.class);
-                        startActivity(pesq);
-                    }
+                if(user.equals(opcao[0]) && senha.equals(senhas[0])) {
+                    Intent admin = new Intent(LoginActivity.this, AdminActivity.class);
+                    startActivity(admin);
+                } else if(user.equals(opcao[1]) && senha.equals(senhas[1])) {
+                    Intent pesq = new Intent(LoginActivity.this, PesqActivity.class);
+                    startActivity(pesq);
                 }
             }
         });
