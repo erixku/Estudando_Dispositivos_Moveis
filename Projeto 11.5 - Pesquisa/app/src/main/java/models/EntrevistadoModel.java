@@ -12,6 +12,30 @@ public class EntrevistadoModel {
     private double latitude;
     private double longitude;
 
+    public String getNome() {
+        return nome;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public LocalTime getHora() {
+        return hora;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
     public EntrevistadoModel(String nome, String telefone, LocalDate data, LocalTime hora, double latitude, double longitude) {
         this.nome = nome;
         this.telefone = telefone;

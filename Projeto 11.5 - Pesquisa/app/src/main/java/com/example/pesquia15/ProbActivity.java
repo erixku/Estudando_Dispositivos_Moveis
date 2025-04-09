@@ -1,13 +1,16 @@
 package com.example.pesquia15;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -16,16 +19,23 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.Arrays;
 import java.util.List;
 
+import helpers.PrefsHelper;
+import models.ProblemasModel;
+
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class ProbActivity extends AppCompatActivity {
 
     List<CheckBox> opcoes;
     Button btNext;
+    private PrefsHelper prefsHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_prob);
+
+        prefsHelper = PrefsHelper.getInstance(ProbActivity.this);
 
         opcoes = Arrays.asList(findViewById(R.id.cbEducacao), findViewById(R.id.cbEmprego), findViewById(R.id.cbInfra), findViewById(R.id.cbSaude), findViewById(R.id.cbSeguranca), findViewById(R.id.cbTransporte));
         int SELECOES_MAX = 3;
@@ -50,6 +60,14 @@ public class ProbActivity extends AppCompatActivity {
                 } else if(selecionados > SELECOES_MAX) {
                     Toast.makeText(ProbActivity.this, "Máximo de " + SELECOES_MAX + " opções!", Toast.LENGTH_SHORT).show();
                 } else {
+                    ProblemasModel prob = new ProblemasModel();
+                    for (CheckBox cb : opcoes) {
+                        if(cb.isChecked())
+                            prob.getProblemas().add(cb.getText().toString());
+                        //Toast.makeText(ProbActivity.this, cb.getText().toString(), Toast.LENGTH_LONG).show();
+                        Log.d("SAVE_DEBUG", "Problemas salvos: " + prob.getProblemas());
+                    }
+                    prefsHelper.addToList("problemas", prob, ProblemasModel.class);
                     Intent cad = new Intent(ProbActivity.this, CadActivity.class);
                     startActivity(cad);
                 }

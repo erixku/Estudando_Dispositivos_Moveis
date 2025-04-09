@@ -8,6 +8,7 @@ import android.location.Location;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import helpers.LocationHelper;
 import helpers.PrefsHelper;
@@ -46,7 +49,9 @@ public class CadActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_cad);
 
-        prefsHelper = new PrefsHelper(CadActivity.this);
+        AndroidThreeTen.init(CadActivity.this);
+
+        prefsHelper = PrefsHelper.getInstance(CadActivity.this);
         locationHelper = new LocationHelper(CadActivity.this);
 
         edNome = findViewById(R.id.edNome);
@@ -54,14 +59,24 @@ public class CadActivity extends AppCompatActivity {
         btNova = findViewById(R.id.btNova);
         btVoltar = findViewById(R.id.btVoltar);
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+            }, 1);
+            return; // Espera o resultado antes de continuar
+        }
+
         btNova.setOnClickListener(new View.OnClickListener() {
             @RequiresPermission(allOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
             @Override
             public void onClick(View v) {
-                salvar(edNome.getText().toString(), edTelefone.getText().toString());
-                Intent nova = new Intent(CadActivity.this, EspActivity.class);
-                startActivity(nova);
-                finish();
+                salvar(edNome.getText().toString(), edTelefone.getText().toString(), () -> {
+                    Intent nova = new Intent(CadActivity.this, EspActivity.class);
+                    startActivity(nova);
+                    finish();
+                });
             }
         });
 
@@ -69,10 +84,11 @@ public class CadActivity extends AppCompatActivity {
             @RequiresPermission(allOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
             @Override
             public void onClick(View v) {
-                salvar(edNome.getText().toString(), edTelefone.getText().toString());
-                Intent voltar = new Intent(CadActivity.this, LoginActivity.class);
-                startActivity(voltar);
-                finish();
+                salvar(edNome.getText().toString(), edTelefone.getText().toString(), () -> {
+                    Intent voltar = new Intent(CadActivity.this, LoginActivity.class);
+                    startActivity(voltar);
+                    finish();
+                });
             }
         });
 
@@ -85,13 +101,23 @@ public class CadActivity extends AppCompatActivity {
 
     @RequiresPermission(allOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void salvar(String nome, String telefone) {
+    private void salvar(String nome, String telefone, Runnable onFinish) {
         LocalDateTime agora = LocalDateTime.now();
         LocalDate data = agora.toLocalDate();
         LocalTime hora = agora.toLocalTime();
+
+        Log.d("DEBUG", "Tentando obter a Localização");
         locationHelper.obterLocalizacao(localizacao -> {
-            EntrevistadoModel entre = new EntrevistadoModel(nome, telefone, data, hora, localizacao.getLatitude(), localizacao.getLongitude());
-            prefsHelper.saveObject("ultimo_cad", entre);
+            if (localizacao != null) {
+                EntrevistadoModel entre = new EntrevistadoModel(
+                        nome, telefone, data, hora,
+                        localizacao.getLatitude(), localizacao.getLongitude()
+                );
+                prefsHelper.addToList("ultimo_cad", entre, EntrevistadoModel.class);
+            } else {
+                Log.d("DEBUG", "Localização nula mesmo com fallback.");
+            }
+            onFinish.run();
         });
     }
 }

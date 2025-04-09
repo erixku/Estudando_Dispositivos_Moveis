@@ -13,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class AdminActivity extends AppCompatActivity {
 
-    Button btPesq;
+    Button btPesq, btEstatistica;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +22,21 @@ public class AdminActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin);
 
         btPesq = findViewById(R.id.btPesq);
+        btEstatistica = findViewById(R.id.btEstatistica);
 
         btPesq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent pesq = new Intent(AdminActivity.this, EspActivity.class);
                 startActivity(pesq);
+            }
+        });
+
+        btEstatistica.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent esta = new Intent(AdminActivity.this, EstatActivity.class);
+                startActivity(esta);
             }
         });
 

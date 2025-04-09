@@ -23,7 +23,7 @@ public class PrefsHelper {
 
     private static PrefsHelper instance;
     private final SharedPreferences sharedPref;
-    private final Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+    private final Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).registerTypeAdapter(LocalTime.class, new LocalTimeAdapter()).create();
 
     public PrefsHelper(Context context) {
         sharedPref = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
@@ -59,6 +59,12 @@ public class PrefsHelper {
 
         Type type = TypeToken.getParameterized(List.class, classOfT).getType();
         return gson.fromJson(json, type);
+    }
+
+    public <T> void addToList(String key, T item, Class<T> classOfT) {
+        List<T> listaAtual = getList(key, classOfT);
+        listaAtual.add(item);
+        saveList(key, listaAtual);
     }
 
 }
