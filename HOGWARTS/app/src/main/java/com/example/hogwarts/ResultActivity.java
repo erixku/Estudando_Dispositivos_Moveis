@@ -27,8 +27,7 @@ import models.Problem;
 public class ResultActivity extends AppCompatActivity {
 
     private help help;
-    private Spinner spTipoDado;
-    private Button btnCarregar, btEstimulada, btEspontanea, btProblemas, btCadastro;
+    private Button btEstimulada, btEspontanea, btProblemas, btCadastro;
     private TextView tvResultados;
     private String tipoSelecionado;
 
@@ -40,20 +39,18 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
         help = help.getInstance(ResultActivity.this);
-        btnCarregar = findViewById(R.id.btnCarregar);
         btEspontanea = findViewById(R.id.btEspontanea);
         btEstimulada = findViewById(R.id.btEstimulada);
         btCadastro = findViewById(R.id.btCadastro);
         btProblemas = findViewById(R.id.btProblemas);
         tvResultados = findViewById(R.id.tvResultados);
-
-
-        configurarBotao();
+        
 
         btEstimulada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 tipoSelecionado = "Pesquisa Estimulada";
+                configurarBotao();
             }
         });
 
@@ -61,6 +58,7 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 tipoSelecionado = "Pesquisa Espontânea";
+                configurarBotao();
             }
         });
 
@@ -68,6 +66,7 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 tipoSelecionado = "Cadastros";
+                configurarBotao();
             }
         });
 
@@ -75,6 +74,7 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 tipoSelecionado = "Problemas";
+                configurarBotao();
             }
         });
 
@@ -88,24 +88,22 @@ public class ResultActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void configurarBotao() {
-        btnCarregar.setOnClickListener(v -> {
-            switch (tipoSelecionado) {
-                case "Pesquisa Espontânea":
-                    exibirDadosEspontanea();
-                    break;
-                case "Pesquisa Estimulada":
-                    exibirDadosEstimulada();
-                    break;
-                case "Problemas":
-                    exibirDadosProblem();
-                    break;
-                case "Cadastros":
-                    exibirCadastros();
-                    break;
-                default:
-                    tvResultados.setText("Selecione um tipo de dado");
-            }
-        });
+        switch (tipoSelecionado) {
+            case "Pesquisa Espontânea":
+                exibirDadosEspontanea();
+                break;
+            case "Pesquisa Estimulada":
+                exibirDadosEstimulada();
+                break;
+            case "Problemas":
+                exibirDadosProblem();
+                break;
+            case "Cadastros":
+                exibirCadastros();
+                break;
+            default:
+                tvResultados.setText("Selecione um tipo de dado");
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
