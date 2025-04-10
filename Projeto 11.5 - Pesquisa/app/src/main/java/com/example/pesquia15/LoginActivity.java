@@ -37,12 +37,6 @@ public class LoginActivity extends AppCompatActivity {
                 String user = edLogin.getText().toString().trim();
                 String senha = edSenha.getText().toString().trim();
 
-                if(edLogin == null || edSenha == null) {
-                    Log.e("DEBUG", "EditText vazio");
-                } else if(user == null || senha == null) {
-                    Log.e("DEBUG", "Variáveis não inicializadas");
-                }
-
                 if(user.equals("admin") && senha.equals("admin")) {
                     Intent admin = new Intent(LoginActivity.this, AdminActivity.class);
                     startActivity(admin);
