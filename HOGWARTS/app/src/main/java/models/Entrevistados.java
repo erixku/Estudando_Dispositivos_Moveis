@@ -7,10 +7,8 @@ public class Entrevistados {
 
         private String nome;
         private String telefone;
-        private LocalDate data;
-        private LocalTime hora;
-        private double latitude;
-        private double longitude;
+        private String data;
+        private String hora;
 
         public String getNome() {
             return nome;
@@ -20,29 +18,19 @@ public class Entrevistados {
             return telefone;
         }
 
-        public LocalDate getData() {
+        public String getData() {
             return data;
         }
 
-        public LocalTime getHora() {
+        public String getHora() {
             return hora;
         }
 
-        public double getLatitude() {
-            return latitude;
-        }
-
-        public double getLongitude() {
-            return longitude;
-        }
-
-        public Entrevistados(String nome, String telefone, LocalDate data, LocalTime hora, double latitude, double longitude) {
+        public Entrevistados(String nome, String telefone, String data, String hora) {
             this.nome = nome;
             this.telefone = telefone;
             this.data = data;
             this.hora = hora;
-            this.latitude = latitude;
-            this.longitude = longitude;
         }
     }
 

@@ -76,8 +76,8 @@ public class EstimuladaActivity extends AppCompatActivity {
                     Estimulada est = new Estimulada(nome);
                     help.addToList("estimulada", est, Estimulada.class);
 
-                  //  Intent prob = new Intent(EstimuladaActivity.this, ProblemasActivity.class);
-                  //  startActivity(prob);
+                  Intent prob = new Intent(EstimuladaActivity.this, ProblemasActivity.class);
+                  startActivity(prob);
                 }
             });
 

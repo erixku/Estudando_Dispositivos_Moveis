@@ -40,8 +40,8 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
                 startActivity(intent);
             } else if (username.equals(USER_USERNAME) && password.equals(USER_PASSWORD)) {
-               // Intent intent = new Intent(LoginActivity.this, PesquiActivity.class);
-               // startActivity(intent);
+               Intent intent = new Intent(LoginActivity.this, EspontaneaActivity.class);
+               startActivity(intent);
             } else {
                 Toast.makeText(LoginActivity.this, "Usuário ou senha incorretos!", Toast.LENGTH_SHORT).show();
             }

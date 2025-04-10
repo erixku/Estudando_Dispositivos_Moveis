@@ -5,35 +5,35 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".AdminActivity">
 
-    <Button
-        android:id="@+id/btPesq"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="275dp"
-        android:backgroundTint="@color/button"
-        android:text="Nova Pesquisa"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:cornerRadius="2dp"
+    <ImageView
+        android:id="@+id/ivPlat"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="31dp"
+        android:clickable="true"
+        android:contentDescription="Imagem clicável"
+        android:focusable="true"
+        android:src="@mipmap/plat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btEstatistica"
-        android:layout_width="200dp"
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:backgroundTint="@color/button"
-        android:text="Estatística"
-        android:textColor="@color/white"
+        android:layout_marginStart="123dp"
+        android:layout_marginTop="77dp"
+        android:layout_marginEnd="124dp"
+        android:fontFamily="casual"
+        android:text="Clicle na Imagem "
         android:textSize="20sp"
-        app:cornerRadius="2dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btPesq" />
-
+        app:layout_constraintTop_toBottomOf="@+id/ivPlat" />
 </androidx.constraintlayout.widget.ConstraintLayout>

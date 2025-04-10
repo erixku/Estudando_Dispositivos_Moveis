@@ -1,10 +1,8 @@
 package com.example.hogwarts;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-
-import android.content.Intent;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,44 +15,40 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import models.help;
-import models.Espontanea;
+import models.Problem;
 
-public class EspontaneaActivity extends AppCompatActivity {
+public class ProblemasActivity extends AppCompatActivity {
 
     private EditText edResposta;
-    private Button btTudo;
+    private Button btPro;
 
-    help help;
-
-
-
+    models.help help;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_espontanea);
+        setContentView(R.layout.activity_problemas);
 
 
-        help  = help.getInstance(EspontaneaActivity.this);
+        help  = help.getInstance(ProblemasActivity.this);
 
         edResposta = findViewById(R.id.edResposta);
-        btTudo = findViewById(R.id.btPro);
+        btPro = findViewById(R.id.btPro);
 
-        btTudo.setOnClickListener(new View.OnClickListener() {
+        btPro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String candidato = edResposta.getText().toString();
+                String problemas = edResposta.getText().toString();
 
-                if(candidato.isEmpty()) {
-                    Toast.makeText(EspontaneaActivity.this, "Indique um candidato", Toast.LENGTH_SHORT).show();
+                if(problemas.isEmpty()) {
+                    Toast.makeText(ProblemasActivity.this, "Indique pelo menos 3 problemas", Toast.LENGTH_SHORT).show();
                 } else {
-                    Espontanea esp = new Espontanea(candidato);
-                    help.addToList("espontaneas", esp, Espontanea.class);
-                    Intent est = new Intent(EspontaneaActivity.this, EstimuladaActivity.class);
-                    startActivity(est);
+                    Problem pro = new Problem(problemas);
+                    help.addToList("problemas", pro, Problem.class);
+                    Intent prob = new Intent(ProblemasActivity.this, CadastroActivity.class);
+                    startActivity(prob);
                 }
             }
         });

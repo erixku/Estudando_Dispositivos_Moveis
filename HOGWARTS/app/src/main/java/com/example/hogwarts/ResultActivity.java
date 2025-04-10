@@ -1,47 +1,34 @@
 package com.example.hogwarts;
 
 import android.os.Bundle;
-
 import android.os.Build;
 import android.util.Log;
 import android.view.View;
-
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import models.help;
 import models.Entrevistados;
 import models.Espontanea;
 import models.Estimulada;
 import models.Problem;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 public class ResultActivity extends AppCompatActivity {
 
     private help help;
     private Spinner spTipoDado;
-    private Button btnCarregar;
+    private Button btnCarregar, btEstimulada, btEspontanea, btProblemas, btCadastro;
     private TextView tvResultados;
     private String tipoSelecionado;
 
@@ -53,12 +40,43 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
         help = help.getInstance(ResultActivity.this);
-        spTipoDado = findViewById(R.id.spTipoDado);
         btnCarregar = findViewById(R.id.btnCarregar);
+        btEspontanea = findViewById(R.id.btEspontanea);
+        btEstimulada = findViewById(R.id.btEstimulada);
+        btCadastro = findViewById(R.id.btCadastro);
+        btProblemas = findViewById(R.id.btProblemas);
         tvResultados = findViewById(R.id.tvResultados);
 
-        configurarSpinner();
+
         configurarBotao();
+
+        btEstimulada.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tipoSelecionado = "Pesquisa Estimulada";
+            }
+        });
+
+        btEspontanea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tipoSelecionado = "Pesquisa Espontânea";
+            }
+        });
+
+        btCadastro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tipoSelecionado = "Cadastros";
+            }
+        });
+
+        btProblemas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tipoSelecionado = "Problemas";
+            }
+        });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -67,24 +85,6 @@ public class ResultActivity extends AppCompatActivity {
         });
     }
 
-    private void configurarSpinner() {
-        String[] opcoes = {"Pesquisa Espontânea", "Pesquisa Estimulada", "Problemas", "Cadastros"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opcoes);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spTipoDado.setAdapter(adapter);
-
-        spTipoDado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                tipoSelecionado = parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                tipoSelecionado = "";
-            }
-        });
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void configurarBotao() {
@@ -97,7 +97,7 @@ public class ResultActivity extends AppCompatActivity {
                     exibirDadosEstimulada();
                     break;
                 case "Problemas":
-                    exibirProblemas();
+                    exibirDadosProblem();
                     break;
                 case "Cadastros":
                     exibirCadastros();
@@ -155,26 +155,19 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void exibirProblemas() {
+    private void exibirDadosProblem() {
+        List<Problem> dados = help.getList("problemas", Problem.class);
+
         StringBuilder sb = new StringBuilder();
-        List<Problem> registros = help.getList("problemas", Problem.class);
-
-        Map<String, Integer> contagem = new HashMap<>();
-
-        if (registros != null) {
-            for (Problem registro : registros) {
-                for (String problema : registro.getProblem()) {
-                    contagem.put(problema, contagem.getOrDefault(problema, 0) + 1);
-                }
+        if (dados != null && !dados.isEmpty()) {
+            for (Problem item : dados) {
+                sb.append("pro: ").append(item.getPro())
+                        .append("\n\n");
             }
+            tvResultados.setText(sb.toString());
+        } else {
+            tvResultados.setText("Nenhum dado de problema encontrado");
         }
-
-        // Exibir resultados (adapte para sua UI)
-        for (Map.Entry<String, Integer> entry : contagem.entrySet()) {
-            sb.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
-        }
-        tvResultados.setText(sb.toString());
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -189,8 +182,6 @@ public class ResultActivity extends AppCompatActivity {
                         .append("\nTelefone: ").append(pessoa.getTelefone())
                         .append("\nData: ").append(pessoa.getData())
                         .append("\nHora: ").append(pessoa.getHora())
-                        .append("\nLatitude: ").append(pessoa.getLatitude())
-                        .append("\nLongitude: ").append(pessoa.getLongitude())
                         .append("\n\n");
             }
             tvResultados.setText(sb.toString());
