@@ -46,6 +46,7 @@ public class ResultActivity extends AppCompatActivity {
         tvResultados = findViewById(R.id.tvResultados);
 
 
+
         btEstimulada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
