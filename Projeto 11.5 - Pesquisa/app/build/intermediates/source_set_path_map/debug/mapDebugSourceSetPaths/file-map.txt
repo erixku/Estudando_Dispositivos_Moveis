@@ -1,0 +1,38 @@
+com.example.pesquia15.app-lifecycle-runtime-2.6.2-0 C:\Users\limber\.gradle\caches\8.10.2\transforms\0448feaba64c3167e273fabadf96f6ea\transformed\lifecycle-runtime-2.6.2\res
+com.example.pesquia15.app-startup-runtime-1.1.1-1 C:\Users\limber\.gradle\caches\8.10.2\transforms\0a2f97a2f905d8750d82b0410163fddc\transformed\startup-runtime-1.1.1\res
+com.example.pesquia15.app-emoji2-views-helper-1.3.0-2 C:\Users\limber\.gradle\caches\8.10.2\transforms\16f667f995f166df30d4229c31a4ad8f\transformed\emoji2-views-helper-1.3.0\res
+com.example.pesquia15.app-core-ktx-1.13.0-3 C:\Users\limber\.gradle\caches\8.10.2\transforms\1a3e956f5d98a54f846b94a5942bc32a\transformed\core-ktx-1.13.0\res
+com.example.pesquia15.app-viewpager2-1.0.0-4 C:\Users\limber\.gradle\caches\8.10.2\transforms\1f60060522ffc840a0aa7665d9c436f5\transformed\viewpager2-1.0.0\res
+com.example.pesquia15.app-fragment-1.5.4-5 C:\Users\limber\.gradle\caches\8.10.2\transforms\25702c579e6fcf34f919e6f85309d338\transformed\fragment-1.5.4\res
+com.example.pesquia15.app-lifecycle-viewmodel-2.6.2-6 C:\Users\limber\.gradle\caches\8.10.2\transforms\25f6cd243a5389d2689a823fd1499928\transformed\lifecycle-viewmodel-2.6.2\res
+com.example.pesquia15.app-profileinstaller-1.4.0-7 C:\Users\limber\.gradle\caches\8.10.2\transforms\277f6850cf43009c112c82afa7e803ea\transformed\profileinstaller-1.4.0\res
+com.example.pesquia15.app-constraintlayout-2.2.1-8 C:\Users\limber\.gradle\caches\8.10.2\transforms\28461e1539bd132ed9dcab0fc8f966c4\transformed\constraintlayout-2.2.1\res
+com.example.pesquia15.app-cardview-1.0.0-9 C:\Users\limber\.gradle\caches\8.10.2\transforms\2be498b59d47b38e0a54cfd62a10742f\transformed\cardview-1.0.0\res
+com.example.pesquia15.app-core-runtime-2.2.0-10 C:\Users\limber\.gradle\caches\8.10.2\transforms\2e43c4a3d1d41015acb60236a1612a69\transformed\core-runtime-2.2.0\res
+com.example.pesquia15.app-savedstate-1.2.1-11 C:\Users\limber\.gradle\caches\8.10.2\transforms\37e611737b81ddbf55d2be16dcb25e5f\transformed\savedstate-1.2.1\res
+com.example.pesquia15.app-play-services-base-18.1.0-12 C:\Users\limber\.gradle\caches\8.10.2\transforms\3845d99c4892078a6c69c226a9cc0838\transformed\play-services-base-18.1.0\res
+com.example.pesquia15.app-core-viewtree-1.0.0-13 C:\Users\limber\.gradle\caches\8.10.2\transforms\3d7f0521269c93e342ae4d949a4c48f2\transformed\core-viewtree-1.0.0\res
+com.example.pesquia15.app-annotation-experimental-1.4.0-14 C:\Users\limber\.gradle\caches\8.10.2\transforms\44f04755237d95d87b1761a2667b9036\transformed\annotation-experimental-1.4.0\res
+com.example.pesquia15.app-appcompat-resources-1.7.0-15 C:\Users\limber\.gradle\caches\8.10.2\transforms\51f0fa7d08a6765570ec09091e8d00b9\transformed\appcompat-resources-1.7.0\res
+com.example.pesquia15.app-coordinatorlayout-1.1.0-16 C:\Users\limber\.gradle\caches\8.10.2\transforms\5285e03dd60072d523e3d0124cf6f82e\transformed\coordinatorlayout-1.1.0\res
+com.example.pesquia15.app-activity-1.10.1-17 C:\Users\limber\.gradle\caches\8.10.2\transforms\683a1f9223a48cb388beb5f5de5246e2\transformed\activity-1.10.1\res
+com.example.pesquia15.app-emoji2-1.3.0-18 C:\Users\limber\.gradle\caches\8.10.2\transforms\73ff5d872685d1f5f92f8210024460b8\transformed\emoji2-1.3.0\res
+com.example.pesquia15.app-gridlayout-1.0.0-19 C:\Users\limber\.gradle\caches\8.10.2\transforms\7b4845efd1675dcb3bfb42262abe9d0e\transformed\gridlayout-1.0.0\res
+com.example.pesquia15.app-transition-1.5.0-20 C:\Users\limber\.gradle\caches\8.10.2\transforms\7e6e95fae22dca60262fdfa22c743c1e\transformed\transition-1.5.0\res
+com.example.pesquia15.app-play-services-basement-18.1.0-21 C:\Users\limber\.gradle\caches\8.10.2\transforms\82a84daeb501059338de94d90a490989\transformed\play-services-basement-18.1.0\res
+com.example.pesquia15.app-lifecycle-viewmodel-savedstate-2.6.2-22 C:\Users\limber\.gradle\caches\8.10.2\transforms\c4388d21ac055c7c8e6d3bbc49762e85\transformed\lifecycle-viewmodel-savedstate-2.6.2\res
+com.example.pesquia15.app-core-1.13.0-23 C:\Users\limber\.gradle\caches\8.10.2\transforms\c514f8c672df1cd37a24dd969c29c4ec\transformed\core-1.13.0\res
+com.example.pesquia15.app-appcompat-1.7.0-24 C:\Users\limber\.gradle\caches\8.10.2\transforms\c8271890515806de38847fbc956b6cd1\transformed\appcompat-1.7.0\res
+com.example.pesquia15.app-lifecycle-livedata-2.6.2-25 C:\Users\limber\.gradle\caches\8.10.2\transforms\d0aca208ad1b26830823168ce183876c\transformed\lifecycle-livedata-2.6.2\res
+com.example.pesquia15.app-drawerlayout-1.1.1-26 C:\Users\limber\.gradle\caches\8.10.2\transforms\db58b8a443cdf46871d728f8c985e706\transformed\drawerlayout-1.1.1\res
+com.example.pesquia15.app-material-1.12.0-27 C:\Users\limber\.gradle\caches\8.10.2\transforms\dda1663091a4d3b9a58157f8a39e261a\transformed\material-1.12.0\res
+com.example.pesquia15.app-lifecycle-process-2.6.2-28 C:\Users\limber\.gradle\caches\8.10.2\transforms\e425d3c62496c816e7fab3ae44673323\transformed\lifecycle-process-2.6.2\res
+com.example.pesquia15.app-lifecycle-livedata-core-2.6.2-29 C:\Users\limber\.gradle\caches\8.10.2\transforms\e53b7882b724349cd1995cd61f9cc11b\transformed\lifecycle-livedata-core-2.6.2\res
+com.example.pesquia15.app-recyclerview-1.1.0-30 C:\Users\limber\.gradle\caches\8.10.2\transforms\ec78140eec04f03737df2196955f6bca\transformed\recyclerview-1.1.0\res
+com.example.pesquia15.app-pngs-31 C:\Users\limber\Documents\Repositorios\Estudos em Dispositivos Moveis\Projeto 11.5 - Pesquisa\app\build\generated\res\pngs\debug
+com.example.pesquia15.app-resValues-32 C:\Users\limber\Documents\Repositorios\Estudos em Dispositivos Moveis\Projeto 11.5 - Pesquisa\app\build\generated\res\resValues\debug
+com.example.pesquia15.app-packageDebugResources-33 C:\Users\limber\Documents\Repositorios\Estudos em Dispositivos Moveis\Projeto 11.5 - Pesquisa\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.example.pesquia15.app-packageDebugResources-34 C:\Users\limber\Documents\Repositorios\Estudos em Dispositivos Moveis\Projeto 11.5 - Pesquisa\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.example.pesquia15.app-debug-35 C:\Users\limber\Documents\Repositorios\Estudos em Dispositivos Moveis\Projeto 11.5 - Pesquisa\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.example.pesquia15.app-debug-36 C:\Users\limber\Documents\Repositorios\Estudos em Dispositivos Moveis\Projeto 11.5 - Pesquisa\app\src\debug\res
+com.example.pesquia15.app-main-37 C:\Users\limber\Documents\Repositorios\Estudos em Dispositivos Moveis\Projeto 11.5 - Pesquisa\app\src\main\res
