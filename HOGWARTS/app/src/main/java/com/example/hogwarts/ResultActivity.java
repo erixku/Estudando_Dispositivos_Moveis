@@ -160,7 +160,7 @@ public class ResultActivity extends AppCompatActivity {
         StringBuilder sb = new StringBuilder();
         if (dados != null && !dados.isEmpty()) {
             for (Problem item : dados) {
-                sb.append("pro: ").append(item.getPro())
+                sb.append("pro: ").append(item.getProblem())
                         .append("\n\n");
             }
             tvResultados.setText(sb.toString());

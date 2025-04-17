@@ -1,15 +1,18 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Problem {
 
-    private String pro;
+    private List<String> problemas;
 
-    public Problem(String pro) {
-        this.pro = pro;
+    public Problem() {
+        this.problemas = new ArrayList<>();
     }
 
-    public String getPro() {
-        return pro;
+    public List<String> getProblem() {
+        return problemas;
     }
 }
 

@@ -11,13 +11,13 @@
         android:id="@+id/btPro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="52dp"
         android:fontFamily="casual"
         android:text="Próximo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edResposta" />
+        app:layout_constraintTop_toBottomOf="@+id/rdAlternativas" />
 
     <TextView
         android:id="@+id/tvTitulo"
@@ -32,6 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
+        android:id="@+id/rdAlternativas"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,14 +58,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="CheckBox" />
+            android:text="Discriminação entre casas e favoritismo por professores" />
 
         <CheckBox
             android:id="@+id/cb3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="CheckBox" />
+            android:text="Problemas estruturais nas escadas móveis" />
 
         <EditText
             android:id="@+id/edResposta"
