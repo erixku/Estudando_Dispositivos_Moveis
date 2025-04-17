@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ProblemasActivity">
 
     <Button
@@ -35,9 +36,10 @@
         android:id="@+id/rdAlternativas"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="141dp">
+        app:layout_constraintTop_toBottomOf="@+id/tvTitulo">
 
         <CheckBox
             android:id="@+id/cb1"
@@ -69,13 +71,15 @@
 
         <EditText
             android:id="@+id/edResposta"
-            android:layout_width="wrap_content"
+            android:layout_width="308dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="39dp"
             android:ems="10"
             android:fontFamily="casual"
             android:hint="escreva aqui..."
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="@color/black" />
     </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
