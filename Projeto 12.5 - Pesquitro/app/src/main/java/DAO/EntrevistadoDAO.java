@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Models.EntrevistadoModel;
 
 public class EntrevistadoDAO extends SQLiteOpenHelper{
@@ -25,15 +28,13 @@ public class EntrevistadoDAO extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("create table " + TABELA_ENTREVISTADO + "(" +
                 COLUNA_ID + " integer PRIMARY KEY AUTOINCREMENT, " +
-                COLUNA_NOME + " text not null, " +
-                COLUNA_TELEFONE + " text not null)"
+                COLUNA_NOME + " text not null DEFAULT 'Anônimo', " +
+                COLUNA_TELEFONE + " text not null DEFAULT 'Não informado')"
         );
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        // Lógica para atualizar a tabela se a versão do banco mudar
-    }
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {}
 
     public void inserirEntrevistado(EntrevistadoModel entrevistado) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -63,6 +64,12 @@ public class EntrevistadoDAO extends SQLiteOpenHelper{
         db.close();
     }
 
+    public void apagarTodosEntrevistados() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABELA_ENTREVISTADO, null, null);
+        db.close();
+    }
+
     public EntrevistadoModel consultarEntrevistado(int id) {
         EntrevistadoModel entrevistado = null;
         String[] campos = {COLUNA_ID, COLUNA_NOME, COLUNA_TELEFONE};
@@ -81,21 +88,23 @@ public class EntrevistadoDAO extends SQLiteOpenHelper{
         return entrevistado;
     }
 
-    public EntrevistadoModel consultarUltimoEntrevistado() {
-        EntrevistadoModel entrevistado = null;
-        String[] campos = {COLUNA_ID, COLUNA_NOME, COLUNA_TELEFONE};
+    public List<EntrevistadoModel> consultarTodosEntrevistados() {
+        List<EntrevistadoModel> entrevistados = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABELA_ENTREVISTADO, campos, null, null, null, null, COLUNA_ID + " DESC", "1");
+        Cursor cursor = db.query(TABELA_ENTREVISTADO, null, null, null, null, null, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
-            entrevistado = new EntrevistadoModel();
-            entrevistado.setId(cursor.getInt(0));
-            entrevistado.setNome(cursor.getString(1));
-            entrevistado.setTelefone(cursor.getString(2));
+            do {
+                EntrevistadoModel entrevistado = new EntrevistadoModel();
+                entrevistado.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COLUNA_ID)));
+                entrevistado.setNome(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_NOME)));
+                entrevistado.setTelefone(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_TELEFONE)));
+                entrevistados.add(entrevistado);
+            } while(cursor.moveToNext());
             cursor.close();
         }
         db.close();
-        return entrevistado;
+        return entrevistados;
     }
 
 }
