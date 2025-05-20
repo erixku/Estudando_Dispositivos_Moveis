@@ -2,12 +2,30 @@ package Models;
 
 public class PercursoModel {
     private int id;
-    private String origem, destino;
+    private String origem, destino, data, hora;
 
     public PercursoModel() {
         this.id = 0;
         this.origem = "";
         this.destino = "";
+        this.data = "";
+        this.hora = "";
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 
     public String getOrigem() {

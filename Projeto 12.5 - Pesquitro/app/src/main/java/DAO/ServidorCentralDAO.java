@@ -15,6 +15,8 @@ public class ServidorCentralDAO extends SQLiteOpenHelper {
     public static final String COLUNA_SER_ID = "ser_id";
     public static final String COLUNA_PER_ORIGEM = "per_origem";
     public static final String COLUNA_PER_DESTINO = "per_destino";
+    public static final String COLUNA_PER_DATA = "per_data";
+    public static final String COLUNA_PER_HORA = "per_hora";
     public static final String COLUNA_ETR_NOME = "etr_nome";
     public static final String COLUNA_ETR_TELEFONE = "etr_telefone";
 
@@ -28,6 +30,8 @@ public class ServidorCentralDAO extends SQLiteOpenHelper {
                 COLUNA_SER_ID + " integer PRIMARY KEY AUTOINCREMENT, " +
                 COLUNA_PER_ORIGEM + " text not null, " +
                 COLUNA_PER_DESTINO + " text not null, " +
+                COLUNA_PER_DATA + " text not null, " +
+                COLUNA_PER_HORA + " text not null, " +
                 COLUNA_ETR_NOME + " text not null, " +
                 COLUNA_ETR_TELEFONE + " text not null)"
         );
@@ -41,6 +45,8 @@ public class ServidorCentralDAO extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUNA_PER_ORIGEM, servidor.getPer_origem());
         values.put(COLUNA_PER_DESTINO, servidor.getPer_destino());
+        values.put(COLUNA_PER_DATA, servidor.getPer_data());
+        values.put(COLUNA_PER_HORA, servidor.getPer_hora());
         values.put(COLUNA_ETR_NOME, servidor.getEtr_nome());
         values.put(COLUNA_ETR_TELEFONE, servidor.getEtr_telefone());
 
@@ -53,6 +59,8 @@ public class ServidorCentralDAO extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUNA_PER_ORIGEM, servidor.getPer_origem());
         values.put(COLUNA_PER_DESTINO, servidor.getPer_destino());
+        values.put(COLUNA_PER_DATA, servidor.getPer_data());
+        values.put(COLUNA_PER_HORA, servidor.getPer_hora());
         values.put(COLUNA_ETR_NOME, servidor.getEtr_nome());
         values.put(COLUNA_ETR_TELEFONE, servidor.getEtr_telefone());
 
@@ -82,6 +90,8 @@ public class ServidorCentralDAO extends SQLiteOpenHelper {
             servidor.setPer_destino(cursor.getString(2));
             servidor.setEtr_nome(cursor.getString(3));
             servidor.setEtr_telefone(cursor.getString(4));
+            servidor.setEtr_nome(cursor.getString(3));
+            servidor.setEtr_telefone(cursor.getString(4));
             cursor.close();
         }
         db.close();
@@ -99,6 +109,8 @@ public class ServidorCentralDAO extends SQLiteOpenHelper {
             servidor.setSer_id(cursor.getInt(0));
             servidor.setPer_origem(cursor.getString(1));
             servidor.setPer_destino(cursor.getString(2));
+            servidor.setEtr_nome(cursor.getString(3));
+            servidor.setEtr_telefone(cursor.getString(4));
             servidor.setEtr_nome(cursor.getString(3));
             servidor.setEtr_telefone(cursor.getString(4));
             cursor.close();

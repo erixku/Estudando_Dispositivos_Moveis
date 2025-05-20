@@ -2,14 +2,32 @@ package Models;
 
 public class ServidorCentralModel {
     private int ser_id;
-    private String per_origem, per_destino, etr_nome, etr_telefone;
+    private String per_origem, per_destino, per_data, per_hora, etr_nome, etr_telefone;
 
     public ServidorCentralModel() {
         this.ser_id = 0;
         this.per_origem = "";
         this.per_destino = "";
+        this.per_data = "";
+        this.per_hora = "";
         this.etr_nome = "";
         this.etr_telefone = "";
+    }
+
+    public String getPer_data() {
+        return per_data;
+    }
+
+    public void setPer_data(String per_data) {
+        this.per_data = per_data;
+    }
+
+    public String getPer_hora() {
+        return per_hora;
+    }
+
+    public void setPer_hora(String per_hora) {
+        this.per_hora = per_hora;
     }
 
     public int getSer_id() {

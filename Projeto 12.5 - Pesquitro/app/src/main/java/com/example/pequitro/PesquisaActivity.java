@@ -1,20 +1,27 @@
 package com.example.pequitro;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 import DAO.PercursoDAO;
 import Models.PercursoModel;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class PesquisaActivity extends AppCompatActivity {
 
     Button btA_Tucuruvi;
@@ -61,9 +68,12 @@ public class PesquisaActivity extends AppCompatActivity {
 
     private int contador = 0;
     private final PercursoModel percurso = new PercursoModel();
-    private PercursoDAO percursoDao = new PercursoDAO(this);
+    private final PercursoDAO percursoDao = new PercursoDAO(this);
     private String origem;
     private String destino;
+
+    private final DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private final DateTimeFormatter hf = DateTimeFormatter.ofPattern("HH:mm");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -417,6 +427,9 @@ public class PesquisaActivity extends AppCompatActivity {
             Toast.makeText(this, nome, Toast.LENGTH_SHORT).show();
         }
 
+        String dataSalva = LocalDate.now().format(df);
+        String horaSalva = LocalTime.now().format(hf);
+
         if (contador == 0) {
             origem = nome;
             contador++;
@@ -429,6 +442,9 @@ public class PesquisaActivity extends AppCompatActivity {
             } else {
                 percurso.setOrigem(origem);
                 percurso.setDestino(destino);
+                percurso.setData(dataSalva);
+                percurso.setHora(horaSalva);
+                Toast.makeText(this, dataSalva, Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, destino + " - " + origem, Toast.LENGTH_SHORT).show();
                 try {
                     percursoDao.inserirPercurso(percurso);

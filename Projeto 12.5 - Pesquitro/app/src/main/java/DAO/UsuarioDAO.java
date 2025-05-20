@@ -24,8 +24,8 @@ public class UsuarioDAO extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("create table " + TABELA_USUARIO + "(" +
-                COLUNA_ID + " integer PRIMARY KEY AUTOINCREMENT, " +
-                COLUNA_EMAIL + " text not null, " +
+                COLUNA_ID + "  integer PRIMARY KEY AUTOINCREMENT, " +
+                COLUNA_EMAIL + "  text not null, " +
                 COLUNA_SENHA + " text not null, " +
                 COLUNA_ROLE + " text not null)"
         );
