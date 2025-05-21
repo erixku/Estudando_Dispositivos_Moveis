@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         usuDao.inserirUsuario(admin);
         usuDao.inserirUsuario(entrev);
+        usuDao.close();
 
         ivMetro = findViewById(R.id.ivMetro);
 

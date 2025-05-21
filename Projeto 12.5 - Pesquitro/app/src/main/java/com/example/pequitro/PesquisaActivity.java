@@ -448,6 +448,7 @@ public class PesquisaActivity extends AppCompatActivity {
                 Toast.makeText(this, destino + " - " + origem, Toast.LENGTH_SHORT).show();
                 try {
                     percursoDao.inserirPercurso(percurso);
+                    percursoDao.close();
                     Toast.makeText(this, "Cadastrado com sucesso", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Toast.makeText(this, "Erro ao salvar o percurso", Toast.LENGTH_SHORT).show();

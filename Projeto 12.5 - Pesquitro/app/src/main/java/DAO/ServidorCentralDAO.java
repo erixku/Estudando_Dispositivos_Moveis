@@ -5,12 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import Models.ServidorCentralModel;
 
-public class ServidorCentralDAO extends SQLiteOpenHelper {
-    public static final String NOME_BANCO = "bdOrigemDestino"; // Mantendo o mesmo nome de banco
-    public static final int VERSAO_BANCO = 1;
+public class ServidorCentralDAO {
+    private OrigemDestinoDAO dbHelper; // Referência ao seu helper centralizado
+    private SQLiteDatabase database; // Referência ao objeto SQLiteDatabase
+
     public static final String TABELA_SERVIDOR_CENTRAL = "tbServidorCentral";
     public static final String COLUNA_SER_ID = "ser_id";
     public static final String COLUNA_PER_ORIGEM = "per_origem";
@@ -21,27 +23,26 @@ public class ServidorCentralDAO extends SQLiteOpenHelper {
     public static final String COLUNA_ETR_TELEFONE = "etr_telefone";
 
     public ServidorCentralDAO(Context context) {
-        super(context, NOME_BANCO, null, VERSAO_BANCO);
+        // O construtor agora recebe o Context e inicializa o helper centralizado
+        this.dbHelper = new OrigemDestinoDAO(context);
+        Log.d("ServidorCentralDAO", "Construtor chamado.");
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table " + TABELA_SERVIDOR_CENTRAL + "(" +
-                COLUNA_SER_ID + " integer PRIMARY KEY AUTOINCREMENT, " +
-                COLUNA_PER_ORIGEM + " text not null, " +
-                COLUNA_PER_DESTINO + " text not null, " +
-                COLUNA_PER_DATA + " text not null, " +
-                COLUNA_PER_HORA + " text not null, " +
-                COLUNA_ETR_NOME + " text not null, " +
-                COLUNA_ETR_TELEFONE + " text not null)"
-        );
+    // Métodos para abrir e fechar a conexão com o banco de dados
+    public void open() {
+        database = dbHelper.getWritableDatabase(); // Obtém o banco de dados para escrita
+        Log.d("ServidorCentralDAO", "Database opened.");
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {}
+    public void close() {
+        if (database != null && database.isOpen()) {
+            database.close();
+            Log.d("ServidorCentralDAO", "Database closed.");
+        }
+    }
 
-    public void inserirServidorCentral(ServidorCentralModel servidor) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public long inserirServidorCentral(ServidorCentralModel servidor) {
+        long result = -1;
         ContentValues values = new ContentValues();
         values.put(COLUNA_PER_ORIGEM, servidor.getPer_origem());
         values.put(COLUNA_PER_DESTINO, servidor.getPer_destino());
@@ -50,12 +51,25 @@ public class ServidorCentralDAO extends SQLiteOpenHelper {
         values.put(COLUNA_ETR_NOME, servidor.getEtr_nome());
         values.put(COLUNA_ETR_TELEFONE, servidor.getEtr_telefone());
 
-        db.insert(TABELA_SERVIDOR_CENTRAL, null, values);
-        db.close();
+        try {
+            open(); // Abre a conexão
+            result = database.insert(TABELA_SERVIDOR_CENTRAL, null, values);
+            if (result == -1) {
+                Log.e("ServidorCentralDAO", "Falha ao inserir ServidorCentral.");
+            } else {
+                Log.d("ServidorCentralDAO", "ServidorCentral inserido com sucesso. ID: " + result);
+            }
+        } catch (Exception e) {
+            Log.e("ServidorCentralDAO", "Erro ao inserir ServidorCentral: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            close(); // Garante que a conexão seja fechada
+        }
+        return result;
     }
 
-    public void atualizarServidorCentral(ServidorCentralModel servidor) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public long atualizarServidorCentral(ServidorCentralModel servidor) {
+        long result = -1;
         ContentValues values = new ContentValues();
         values.put(COLUNA_PER_ORIGEM, servidor.getPer_origem());
         values.put(COLUNA_PER_DESTINO, servidor.getPer_destino());
@@ -65,57 +79,149 @@ public class ServidorCentralDAO extends SQLiteOpenHelper {
         values.put(COLUNA_ETR_TELEFONE, servidor.getEtr_telefone());
 
         String[] param = {String.valueOf(servidor.getSer_id())};
-        db.update(TABELA_SERVIDOR_CENTRAL, values, "ser_id = ?", param);
-        db.close();
+        try {
+            open(); // Abre a conexão
+            result = database.update(TABELA_SERVIDOR_CENTRAL, values, COLUNA_SER_ID + " = ?", param);
+            if (result == 0) { // update retorna 0 se nenhuma linha for afetada
+                Log.w("ServidorCentralDAO", "Nenhum ServidorCentral atualizado para o ID: " + servidor.getSer_id());
+            } else {
+                Log.d("ServidorCentralDAO", "ServidorCentral atualizado com sucesso. Linhas afetadas: " + result);
+            }
+        } catch (Exception e) {
+            Log.e("ServidorCentralDAO", "Erro ao atualizar ServidorCentral: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            close(); // Garante que a conexão seja fechada
+        }
+        return result;
     }
 
-    public void apagarServidorCentral(int id) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public long apagarServidorCentral(int id) {
+        long result = -1;
         String[] param = {String.valueOf(id)};
-        db.delete(TABELA_SERVIDOR_CENTRAL, "ser_id = ?", param);
-        db.close();
+        try {
+            open(); // Abre a conexão
+            result = database.delete(TABELA_SERVIDOR_CENTRAL, COLUNA_SER_ID + " = ?", param);
+            if (result == 0) { // delete retorna 0 se nenhuma linha for afetada
+                Log.w("ServidorCentralDAO", "Nenhum ServidorCentral encontrado para apagar com ID: " + id);
+            } else {
+                Log.d("ServidorCentralDAO", "ServidorCentral com ID: " + id + " apagado com sucesso. Linhas apagadas: " + result);
+            }
+        } catch (Exception e) {
+            Log.e("ServidorCentralDAO", "Erro ao apagar ServidorCentral: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            close(); // Garante que a conexão seja fechada
+        }
+        return result;
     }
 
     public ServidorCentralModel consultarServidorCentral(int id) {
         ServidorCentralModel servidor = null;
-        String[] campos = {COLUNA_SER_ID, COLUNA_PER_ORIGEM, COLUNA_PER_DESTINO, COLUNA_ETR_NOME, COLUNA_ETR_TELEFONE};
+        Cursor cursor = null; // Inicialize o cursor como null
+        // Removi COLUNA_PER_DATA e COLUNA_PER_HORA dos campos, pois não estavam sendo atribuídos no modelo
+        String[] campos = {COLUNA_SER_ID, COLUNA_PER_ORIGEM, COLUNA_PER_DESTINO, COLUNA_PER_DATA, COLUNA_PER_HORA, COLUNA_ETR_NOME, COLUNA_ETR_TELEFONE};
         String[] param = {String.valueOf(id)};
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABELA_SERVIDOR_CENTRAL, campos, "ser_id = ?", param, null, null, null);
 
-        if (cursor != null && cursor.moveToFirst()) {
-            servidor = new ServidorCentralModel();
-            servidor.setSer_id(cursor.getInt(0));
-            servidor.setPer_origem(cursor.getString(1));
-            servidor.setPer_destino(cursor.getString(2));
-            servidor.setEtr_nome(cursor.getString(3));
-            servidor.setEtr_telefone(cursor.getString(4));
-            servidor.setEtr_nome(cursor.getString(3));
-            servidor.setEtr_telefone(cursor.getString(4));
-            cursor.close();
+        try {
+            open(); // Abre a conexão
+            cursor = database.query(TABELA_SERVIDOR_CENTRAL, campos, COLUNA_SER_ID + " = ?", param, null, null, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                servidor = new ServidorCentralModel();
+                servidor.setSer_id(cursor.getInt(cursor.getColumnIndexOrThrow(COLUNA_SER_ID)));
+                servidor.setPer_origem(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_PER_ORIGEM)));
+                servidor.setPer_destino(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_PER_DESTINO)));
+                servidor.setPer_data(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_PER_DATA)));
+                servidor.setPer_hora(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_PER_HORA)));
+                servidor.setEtr_nome(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_ETR_NOME)));
+                servidor.setEtr_telefone(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_ETR_TELEFONE)));
+                Log.d("ServidorCentralDAO", "ServidorCentral encontrado para ID: " + id);
+            } else {
+                Log.w("ServidorCentralDAO", "Nenhum ServidorCentral encontrado para o ID: " + id);
+            }
+        } catch (Exception e) {
+            Log.e("ServidorCentralDAO", "Erro ao consultar ServidorCentral: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close(); // Garante que o cursor seja fechado
+            }
+            close(); // Garante que a conexão seja fechada
         }
-        db.close();
         return servidor;
     }
 
     public ServidorCentralModel consultarUltimoServidorCentral() {
         ServidorCentralModel servidor = null;
-        String[] campos = {COLUNA_SER_ID, COLUNA_PER_ORIGEM, COLUNA_PER_DESTINO, COLUNA_ETR_NOME, COLUNA_ETR_TELEFONE};
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABELA_SERVIDOR_CENTRAL, campos, null, null, null, null, COLUNA_SER_ID + " DESC", "1");
+        Cursor cursor = null; // Inicialize o cursor como null
+        // Removi COLUNA_PER_DATA e COLUNA_PER_HORA dos campos, pois não estavam sendo atribuídos no modelo
+        String[] campos = {COLUNA_SER_ID, COLUNA_PER_ORIGEM, COLUNA_PER_DESTINO, COLUNA_PER_DATA, COLUNA_PER_HORA, COLUNA_ETR_NOME, COLUNA_ETR_TELEFONE};
 
-        if (cursor != null && cursor.moveToFirst()) {
-            servidor = new ServidorCentralModel();
-            servidor.setSer_id(cursor.getInt(0));
-            servidor.setPer_origem(cursor.getString(1));
-            servidor.setPer_destino(cursor.getString(2));
-            servidor.setEtr_nome(cursor.getString(3));
-            servidor.setEtr_telefone(cursor.getString(4));
-            servidor.setEtr_nome(cursor.getString(3));
-            servidor.setEtr_telefone(cursor.getString(4));
-            cursor.close();
+        try {
+            open(); // Abre a conexão
+            // Consulta o último registro ordenando por ID de forma descendente e limitando a 1
+            cursor = database.query(TABELA_SERVIDOR_CENTRAL, campos, null, null, null, null, COLUNA_SER_ID + " DESC", "1");
+
+            if (cursor != null && cursor.moveToFirst()) {
+                servidor = new ServidorCentralModel();
+                servidor.setSer_id(cursor.getInt(cursor.getColumnIndexOrThrow(COLUNA_SER_ID)));
+                servidor.setPer_origem(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_PER_ORIGEM)));
+                servidor.setPer_destino(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_PER_DESTINO)));
+                servidor.setPer_data(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_PER_DATA)));
+                servidor.setPer_hora(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_PER_HORA)));
+                servidor.setEtr_nome(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_ETR_NOME)));
+                servidor.setEtr_telefone(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_ETR_TELEFONE)));
+                Log.d("ServidorCentralDAO", "Último ServidorCentral consultado. ID: " + servidor.getSer_id());
+            } else {
+                Log.w("ServidorCentralDAO", "Nenhum ServidorCentral encontrado na tabela.");
+            }
+        } catch (Exception e) {
+            Log.e("ServidorCentralDAO", "Erro ao consultar o último ServidorCentral: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close(); // Garante que o cursor seja fechado
+            }
+            close(); // Garante que a conexão seja fechada
         }
-        db.close();
         return servidor;
+    }
+
+    // Se necessário, adicione um método para consultar todos os registros
+    public java.util.List<ServidorCentralModel> consultarTodosServidoresCentrais() {
+        java.util.List<ServidorCentralModel> servidores = new java.util.ArrayList<>();
+        Cursor cursor = null;
+
+        try {
+            open();
+            cursor = database.query(TABELA_SERVIDOR_CENTRAL, null, null, null, null, null, COLUNA_SER_ID + " ASC");
+
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    ServidorCentralModel servidor = new ServidorCentralModel();
+                    servidor.setSer_id(cursor.getInt(cursor.getColumnIndexOrThrow(COLUNA_SER_ID)));
+                    servidor.setPer_origem(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_PER_ORIGEM)));
+                    servidor.setPer_destino(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_PER_DESTINO)));
+                    servidor.setPer_data(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_PER_DATA)));
+                    servidor.setPer_hora(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_PER_HORA)));
+                    servidor.setEtr_nome(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_ETR_NOME)));
+                    servidor.setEtr_telefone(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_ETR_TELEFONE)));
+                    servidores.add(servidor);
+                } while (cursor.moveToNext());
+                Log.d("ServidorCentralDAO", "Todos os Servidores Centrais consultados. Total: " + servidores.size());
+            } else {
+                Log.d("ServidorCentralDAO", "Nenhum ServidorCentral encontrado.");
+            }
+        } catch (Exception e) {
+            Log.e("ServidorCentralDAO", "Erro ao consultar todos os Servidores Centrais: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+            close();
+        }
+        return servidores;
     }
 }

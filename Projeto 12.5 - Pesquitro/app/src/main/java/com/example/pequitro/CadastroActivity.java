@@ -39,12 +39,14 @@ public class CadastroActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (edNome.getText().toString().isEmpty() || edTelefone.getText().toString().isEmpty()) {
                     dao.inserirEntrevistado(entrev);
+                    dao.close();
                     EntrevistadoModel teste = dao.consultarEntrevistado(1);
                     Toast.makeText(CadastroActivity.this, teste.getNome(), Toast.LENGTH_SHORT).show();
                 } else {
                     entrev.setNome(edNome.getText().toString());
                     entrev.setTelefone(formatarTelefone(edTelefone.getText().toString()));
                     dao.inserirEntrevistado(entrev);
+                    dao.close();
                     EntrevistadoModel teste = dao.consultarEntrevistado(1);
                     Toast.makeText(CadastroActivity.this, teste.getNome(), Toast.LENGTH_SHORT).show();
                 }

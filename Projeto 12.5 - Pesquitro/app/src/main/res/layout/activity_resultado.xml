@@ -7,11 +7,27 @@
     android:layout_height="match_parent"
     tools:context=".ResultadoActivity">
 
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/graph"
+        android:layout_width="match_parent"
+        android:layout_height="200dip"
+        app:layout_constraintTop_toTopOf="parent" />
+    <com.anychart.AnyChartView
+        android:id="@+id/any_chart_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/btLimparDados"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#363436"
         android:text="Limpar Dados"
+        app:cornerRadius="1dp"
         tools:layout_editor_absoluteX="599dp"
         tools:layout_editor_absoluteY="688dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

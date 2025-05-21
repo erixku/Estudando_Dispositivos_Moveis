@@ -10,6 +10,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
 import java.util.List;
 
 import DAO.EntrevistadoDAO;
@@ -29,13 +33,25 @@ public class ResultadoActivity extends AppCompatActivity {
     List<EntrevistadoModel> entrevistados = entrevistadoDAO.consultarTodosEntrevistados();
     List<PercursoModel> percursos = percursoDAO.consultarTodosPercursos();
 
+    GraphView grafico;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_resultado);
 
+        grafico = findViewById(R.id.graph);
         btLimparDados = findViewById(R.id.btLimparDados);
+
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[] {
+                new DataPoint(0, 1),
+                new DataPoint(1, 5),
+                new DataPoint(2, 3),
+                new DataPoint(3, 2),
+                new DataPoint(4, 6)
+        });
+        grafico.addSeries(series);
 
         btLimparDados.setOnClickListener(new View.OnClickListener() {
             @Override
