@@ -7,25 +7,79 @@
     android:layout_height="match_parent"
     tools:context=".ResultadoActivity">
 
-    <com.androidplot.pie.PieChart
-        android:id="@+id/gpPizza"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="175dp"
-        app:borderThickness="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/btVoltarLogin2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="250dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#363436"
+        android:text="Voltar ao Login"
+        android:textColorLink="#443D3D"
+        app:cornerRadius="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/btLimparDados"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginStart="250dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="#363436"
         android:text="Limpar Dados"
         app:cornerRadius="1dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gpPizza" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ListView
+        android:id="@+id/ltPercursos"
+        android:layout_width="217dp"
+        android:layout_height="363dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ScrollView
+        android:layout_width="300dp"
+        android:layout_height="363dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ltPercursos">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|top"
+            android:divider="@null"
+            android:orientation="vertical">
+
+            <com.androidplot.pie.PieChart
+                android:id="@+id/ptOrigem"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="0dp"
+                app:borderThickness="2dp" />
+
+            <com.androidplot.pie.PieChart
+                android:id="@+id/ptTotal"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="0dp"
+                app:borderThickness="2dp" />
+
+            <com.androidplot.pie.PieChart
+                android:id="@+id/ptDestino"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="0dp"
+                app:borderThickness="2dp" />
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

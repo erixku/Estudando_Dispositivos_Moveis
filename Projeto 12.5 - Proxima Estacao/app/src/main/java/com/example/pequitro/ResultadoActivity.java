@@ -2,8 +2,15 @@ package com.example.pequitro;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
+
+import java.text.FieldPosition;
+import java.text.Format;
+import java.text.ParsePosition;
+import java.util.List;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,18 +18,21 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.androidplot.xy.LineAndPointFormatter;
-import com.androidplot.xy.SimpleXYSeries;
-import com.androidplot.xy.XYPlot;
-import com.androidplot.xy.XYSeries;
-import com.androidplot.xy.XYSeriesFormatter;
 import com.androidplot.pie.PieChart;
 import com.androidplot.pie.Segment;
 import com.androidplot.pie.SegmentFormatter;
 import com.androidplot.pie.PieRenderer;
+import com.androidplot.xy.BoundaryMode;
+import com.androidplot.xy.StepMode;
+import com.androidplot.xy.XYPlot;
+import com.androidplot.xy.BarFormatter;
+import com.androidplot.xy.BarRenderer;
+import com.androidplot.xy.XYGraphWidget;
+import com.androidplot.xy.XYSeries;
 
-import java.util.List;
+import com.androidplot.xy.PanZoom;
 
+import Helpers.PercursoListAdapter;
 import DAO.EntrevistadoDAO;
 import DAO.PercursoDAO;
 import DAO.ServidorCentralDAO;
@@ -38,7 +48,10 @@ public class ResultadoActivity extends AppCompatActivity {
     ServidorCentralDAO servidorCentralDAO = new ServidorCentralDAO(this);
     List<EntrevistadoModel> entrevistados = entrevistadoDAO.consultarTodosEntrevistados();
     List<PercursoModel> percursos = percursoDAO.consultarTodosPercursos();
-    private PieChart plot;
+    private PieChart plotTotal;
+    private XYPlot plotBarras;
+    ListView ltPercursos;
+    PercursoListAdapter percursoAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +59,7 @@ public class ResultadoActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_resultado);
 
-        plot = findViewById(R.id.gpPizza);
+        plotTotal = findViewById(R.id.ptTotal);
 
         Segment s1 = new Segment("1", 10);
         Segment s2 = new Segment("2", 20);
@@ -65,16 +78,20 @@ public class ResultadoActivity extends AppCompatActivity {
         SegmentFormatter sf4 = new SegmentFormatter(Color.rgb(255, 0, 0));
         sf4.getLabelPaint().setTextSize(20f);
 
-        plot.addSegment(s1, sf1);
-        plot.addSegment(s2, sf2);
-        plot.addSegment(s3, sf3);
-        plot.addSegment(s4, sf4);
+        plotTotal.addSegment(s1, sf1);
+        plotTotal.addSegment(s2, sf2);
+        plotTotal.addSegment(s3, sf3);
+        plotTotal.addSegment(s4, sf4);
 
-        PieRenderer pr = plot.getRenderer(PieRenderer.class);
+        PieRenderer pr = plotTotal.getRenderer(PieRenderer.class);
         pr.setDonutSize(0.3f, PieRenderer.DonutMode.PERCENT);
-        plot.redraw();
+        plotTotal.redraw();
+
+        ltPercursos = findViewById(R.id.ltPercursos);
 
         btLimparDados = findViewById(R.id.btLimparDados);
+
+        carregarPercursos();
 
         btLimparDados.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,12 +106,15 @@ public class ResultadoActivity extends AppCompatActivity {
                         servidorCentral.setEtr_telefone(entrevistado.getTelefone());
                         servidorCentral.setPer_origem(percurso.getOrigem());
                         servidorCentral.setPer_destino(percurso.getDestino());
+                        servidorCentral.setPer_data(percurso.getData());
+                        servidorCentral.setPer_hora(percurso.getHora());
 
                         servidorCentralDAO.inserirServidorCentral(servidorCentral);
                     }
                 }
                 entrevistadoDAO.apagarTodosEntrevistados();
                 percursoDAO.apagarTodosPercurso();
+                carregarPercursos();
             }
         });
 
@@ -103,5 +123,29 @@ public class ResultadoActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    private void carregarPercursos() {
+        List<PercursoModel> percursos = percursoDAO.consultarTodosPercursos();
+
+        if (percursos != null) { // A lista pode ser vazia, mas não nula
+            // Inicializa o adapter apenas se ainda não foi inicializado
+            if (percursoAdapter == null) {
+                percursoAdapter = new PercursoListAdapter(
+                        this,
+                        R.layout.list_item_percurso, // Seu layout personalizado para cada item
+                        percursos
+                );
+                ltPercursos.setAdapter(percursoAdapter);
+            } else {
+                // Se o adapter já existe, apenas limpe e adicione os novos dados
+                percursoAdapter.clear();
+                percursoAdapter.addAll(percursos);
+                percursoAdapter.notifyDataSetChanged(); // Notifica o ListView para redesenhar
+            }
+        } else {
+            Log.d("MainActivity", "Nenhum percurso encontrado ou erro ao consultar.");
+            // Opcional: exibir uma mensagem na UI informando que não há dados
+        }
     }
 }

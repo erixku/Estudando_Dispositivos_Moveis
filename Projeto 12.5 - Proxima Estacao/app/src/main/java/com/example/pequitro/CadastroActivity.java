@@ -38,6 +38,9 @@ public class CadastroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (edNome.getText().toString().isEmpty() || edTelefone.getText().toString().isEmpty()) {
+                    entrev.setNome("");
+                    entrev.setTelefone("");
+
                     dao.inserirEntrevistado(entrev);
                     dao.close();
                     EntrevistadoModel teste = dao.consultarEntrevistado(1);
