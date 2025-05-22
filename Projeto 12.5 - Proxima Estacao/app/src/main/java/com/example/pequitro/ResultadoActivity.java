@@ -1,15 +1,15 @@
 package com.example.pequitro;
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import java.text.FieldPosition;
-import java.text.Format;
-import java.text.ParsePosition;
 import java.util.List;
 
 import androidx.activity.EdgeToEdge;
@@ -22,16 +22,9 @@ import com.androidplot.pie.PieChart;
 import com.androidplot.pie.Segment;
 import com.androidplot.pie.SegmentFormatter;
 import com.androidplot.pie.PieRenderer;
-import com.androidplot.xy.BoundaryMode;
-import com.androidplot.xy.StepMode;
 import com.androidplot.xy.XYPlot;
-import com.androidplot.xy.BarFormatter;
-import com.androidplot.xy.BarRenderer;
-import com.androidplot.xy.XYGraphWidget;
-import com.androidplot.xy.XYSeries;
 
-import com.androidplot.xy.PanZoom;
-
+import Helpers.EntrevListAdapter;
 import Helpers.PercursoListAdapter;
 import DAO.EntrevistadoDAO;
 import DAO.PercursoDAO;
@@ -42,7 +35,7 @@ import Models.ServidorCentralModel;
 
 public class ResultadoActivity extends AppCompatActivity {
 
-    Button btLimparDados;
+    Button btLimparDados, btVoltarLogin2;
     EntrevistadoDAO entrevistadoDAO = new EntrevistadoDAO(this);
     PercursoDAO percursoDAO = new PercursoDAO(this);
     ServidorCentralDAO servidorCentralDAO = new ServidorCentralDAO(this);
@@ -50,8 +43,9 @@ public class ResultadoActivity extends AppCompatActivity {
     List<PercursoModel> percursos = percursoDAO.consultarTodosPercursos();
     private PieChart plotTotal;
     private XYPlot plotBarras;
-    ListView ltPercursos;
+    ListView ltPercursos, ltEntrevistados;
     PercursoListAdapter percursoAdapter;
+    EntrevListAdapter entrevAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,11 +81,14 @@ public class ResultadoActivity extends AppCompatActivity {
         pr.setDonutSize(0.3f, PieRenderer.DonutMode.PERCENT);
         plotTotal.redraw();
 
-        ltPercursos = findViewById(R.id.ltPercursos);
+        ltPercursos = findViewById(R.id.ltPercurso);
+        ltEntrevistados = findViewById(R.id.ltEntrevistados);
 
         btLimparDados = findViewById(R.id.btLimparDados);
+        btVoltarLogin2 = findViewById(R.id.btVoltarLogin2);
 
         carregarPercursos();
+        carregarEntrevistados();
 
         btLimparDados.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +112,16 @@ public class ResultadoActivity extends AppCompatActivity {
                 entrevistadoDAO.apagarTodosEntrevistados();
                 percursoDAO.apagarTodosPercurso();
                 carregarPercursos();
+                carregarEntrevistados();
+            }
+        });
+
+        btVoltarLogin2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent login = new Intent(ResultadoActivity.this, LoginActivity.class);
+                startActivity(login);
+                finish();
             }
         });
 
@@ -142,6 +149,30 @@ public class ResultadoActivity extends AppCompatActivity {
                 percursoAdapter.clear();
                 percursoAdapter.addAll(percursos);
                 percursoAdapter.notifyDataSetChanged(); // Notifica o ListView para redesenhar
+            }
+        } else {
+            Log.d("MainActivity", "Nenhum percurso encontrado ou erro ao consultar.");
+            // Opcional: exibir uma mensagem na UI informando que não há dados
+        }
+    }
+
+    private void carregarEntrevistados() {
+        List<EntrevistadoModel> entrevistados = entrevistadoDAO.consultarTodosEntrevistados();
+
+        if (entrevistados != null) { // A lista pode ser vazia, mas não nula
+            // Inicializa o adapter apenas se ainda não foi inicializado
+            if (entrevAdapter == null) {
+                entrevAdapter = new EntrevListAdapter(
+                        this,
+                        R.layout.list_item_entrev, // Seu layout personalizado para cada item
+                        entrevistados
+                );
+                ltEntrevistados.setAdapter(entrevAdapter);
+            } else {
+                // Se o adapter já existe, apenas limpe e adicione os novos dados
+                entrevAdapter.clear();
+                entrevAdapter.addAll(entrevistados);
+                entrevAdapter.notifyDataSetChanged(); // Notifica o ListView para redesenhar
             }
         } else {
             Log.d("MainActivity", "Nenhum percurso encontrado ou erro ao consultar.");

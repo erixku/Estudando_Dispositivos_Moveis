@@ -1,6 +1,7 @@
 package com.example.pequitro;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,20 +39,22 @@ public class CadastroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (edNome.getText().toString().isEmpty() || edTelefone.getText().toString().isEmpty()) {
-                    entrev.setNome("");
-                    entrev.setTelefone("");
+                    entrev.setNome("Anônimo");
+                    entrev.setTelefone("Não informado");
 
-                    dao.inserirEntrevistado(entrev);
-                    dao.close();
-                    EntrevistadoModel teste = dao.consultarEntrevistado(1);
-                    Toast.makeText(CadastroActivity.this, teste.getNome(), Toast.LENGTH_SHORT).show();
+                    try{
+                        dao.inserirEntrevistado(entrev);
+                    } catch (SQLiteException e) {
+                        Toast.makeText(CadastroActivity.this, "Erro ao inserir Entrevistado", Toast.LENGTH_SHORT).show();
+                    }
+                    finally {
+                        dao.close();
+                    }
                 } else {
                     entrev.setNome(edNome.getText().toString());
                     entrev.setTelefone(formatarTelefone(edTelefone.getText().toString()));
                     dao.inserirEntrevistado(entrev);
                     dao.close();
-                    EntrevistadoModel teste = dao.consultarEntrevistado(1);
-                    Toast.makeText(CadastroActivity.this, teste.getNome(), Toast.LENGTH_SHORT).show();
                 }
                 Intent pesq = new Intent(CadastroActivity.this, PesquisaActivity.class);
                 startActivity(pesq);
@@ -63,15 +66,22 @@ public class CadastroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (edNome.getText().toString().isEmpty() || edTelefone.getText().toString().isEmpty()) {
-                    dao.inserirEntrevistado(entrev);
-                    EntrevistadoModel teste = dao.consultarEntrevistado(1);
-                    Toast.makeText(CadastroActivity.this, teste.getNome(), Toast.LENGTH_SHORT).show();
+                    entrev.setNome("Anônimo");
+                    entrev.setTelefone("Não informado");
+
+                    try{
+                        dao.inserirEntrevistado(entrev);
+                    } catch (SQLiteException e) {
+                        Toast.makeText(CadastroActivity.this, "Erro ao inserir Entrevistado", Toast.LENGTH_SHORT).show();
+                    }
+                    finally {
+                        dao.close();
+                    }
                 } else {
                     entrev.setNome(edNome.getText().toString());
                     entrev.setTelefone(formatarTelefone(edTelefone.getText().toString()));
                     dao.inserirEntrevistado(entrev);
-                    EntrevistadoModel teste = dao.consultarEntrevistado(1);
-                    Toast.makeText(CadastroActivity.this, teste.getNome(), Toast.LENGTH_SHORT).show();
+                    dao.close();
                 }
                 Intent login = new Intent(CadastroActivity.this, LoginActivity.class);
                 startActivity(login);

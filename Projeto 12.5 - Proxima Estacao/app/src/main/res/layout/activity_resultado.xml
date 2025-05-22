@@ -20,6 +20,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <ListView
+        android:id="@+id/ltEntrevistados"
+        android:layout_width="217dp"
+        android:layout_height="363dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <Button
         android:id="@+id/btLimparDados"
         android:layout_width="wrap_content"
@@ -33,21 +42,24 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
-        android:id="@+id/ltPercursos"
+        android:id="@+id/ltPercurso"
         android:layout_width="217dp"
         android:layout_height="363dp"
         android:layout_marginStart="50dp"
         android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" >
+
+    </ListView>
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="300dp"
         android:layout_height="363dp"
-        android:layout_marginStart="2dp"
         android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ltPercursos">
+        app:layout_constraintEnd_toStartOf="@+id/ltEntrevistados"
+        app:layout_constraintStart_toEndOf="@+id/ltPercurso">
 
         <LinearLayout
             android:layout_width="wrap_content"
