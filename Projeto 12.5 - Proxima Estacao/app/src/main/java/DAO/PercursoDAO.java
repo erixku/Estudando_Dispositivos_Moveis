@@ -170,6 +170,7 @@ public class PercursoDAO { // <<<< NÃO ESTENDE MAIS SQLiteOpenHelper
                 do {
                     PercursoModel percurso = new PercursoModel();
                     percurso.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COLUNA_ID)));
+                    percurso.setContagem(cursor.getInt(consultarContagemPercursoEspecífico(percurso.getId())));
                     percurso.setOrigem(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_ORIGEM)));
                     percurso.setDestino(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_DESTINO)));
                     percursos.add(percurso);
@@ -263,6 +264,32 @@ public class PercursoDAO { // <<<< NÃO ESTENDE MAIS SQLiteOpenHelper
         try {
             open();
             cursor = database.rawQuery(query, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                contagem = cursor.getInt(0);
+                Log.d("PercursoDAO", "Contagem total de percursos: " + contagem);
+            }
+        } catch (Exception e) {
+            Log.e("PercursoDAO", "Erro ao consultar contagem de percurso: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+            close();
+        }
+        return contagem;
+    }
+
+    public int consultarContagemPercursoEspecífico(int id) {
+        int contagem = 0;
+        Cursor cursor = null;
+
+        String query = "SELECT COUNT(*) FROM " + TABELA_PERCURSO + " WHERE " + COLUNA_ID + " = ?";
+        String[] param = {String.valueOf(id)};
+
+        try {
+            open();
+            cursor = database.rawQuery(query, param);
             if (cursor != null && cursor.moveToFirst()) {
                 contagem = cursor.getInt(0);
                 Log.d("PercursoDAO", "Contagem total de percursos: " + contagem);

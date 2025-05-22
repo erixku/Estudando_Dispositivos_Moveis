@@ -43,11 +43,13 @@ public class PercursoListAdapter extends ArrayAdapter<PercursoModel> {
         // 3. Obter referências aos TextViews no layout do item
         TextView textViewOrigem = convertView.findViewById(R.id.textViewOrigem);
         TextView textViewDestino = convertView.findViewById(R.id.textViewDestino);
+        TextView textViewContagem = convertView.findViewById(R.id.textViewContagem);
 
         // 4. Preencher os TextViews com os dados do objeto PercursoModel
         if (percurso != null) {
             textViewOrigem.setText("Origem: " + percurso.getOrigem());
             textViewDestino.setText("Destino: " + percurso.getDestino());
+            textViewContagem.setText("Contagem: " + percurso.getContagem());
         }
 
         // 5. Retornar a view preenchida para exibição
