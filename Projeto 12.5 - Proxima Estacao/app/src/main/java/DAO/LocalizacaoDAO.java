@@ -139,6 +139,7 @@ public class LocalizacaoDAO {
         return localizacao;
     }
 
+
     // Você pode adicionar um método para consultar todas as localizações se necessário
     public java.util.List<LocalizacaoModel> consultarTodasLocalizacoes() {
         java.util.List<LocalizacaoModel> localizacoes = new java.util.ArrayList<>();
@@ -171,5 +172,61 @@ public class LocalizacaoDAO {
         }
         return localizacoes;
     }
+
+    public java.util.List<LocalizacaoModel> consultarTodasLocalizacoesAzul(String prefixo) {
+        java.util.List<LocalizacaoModel> localizacoes = new java.util.ArrayList<>();
+        Cursor cursor = null;
+        try {
+            open();
+
+            String[] cols = {COLUNA_ID, COLUNA_NOME, COLUNA_LATITUDE, COLUNA_LONGITUDE};
+            String selection = COLUNA_NOME + " LIKE ?"; // Condição para filtrar por nome
+            String[] selectionArgs = new String[]{prefixo + "%"}; // Argumento: 'prefixo%' para "começa com"
+            String orderBy = COLUNA_NOME + " ASC";
+
+            cursor = database.query(TABELA_LOCALIZACAO, cols, selection, selectionArgs, null, null, orderBy);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    LocalizacaoModel localizacao = new LocalizacaoModel();
+                    localizacao.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COLUNA_ID)));
+                    localizacao.setNome(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_NOME)));
+                    localizacao.setLatitude(cursor.getFloat(cursor.getColumnIndexOrThrow(COLUNA_LATITUDE)));
+                    localizacao.setLongitude(cursor.getFloat(cursor.getColumnIndexOrThrow(COLUNA_LONGITUDE)));
+                    localizacoes.add(localizacao);
+                } while(cursor.moveToNext());
+            } else {
+                Log.d("LocalizacaoDAO", "Nenhuma localização encontrada.");
+            }
+        } catch (Exception e) {
+            Log.e("LocalizacaoDAO", "Erro ao consultar todas as localizações: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+            close();
+        }
+        return localizacoes;
+    }
+
+    public String toString() {
+        return COLUNA_NOME;
+    }
+
+    public String getLinhaMetroByNome(String nomeEstacao) {
+        if (nomeEstacao == null || nomeEstacao.isEmpty()) {
+            return "Desconhecida";
+        }
+        if (nomeEstacao.startsWith("a-")) {
+            return "Linha Azul";
+        } else if (nomeEstacao.startsWith("v-")) {
+            return "Linha Vermelha";
+        }
+        // Adicione mais verificações para outras linhas se existirem (verde, amarela, etc.)
+        return "Outra Linha"; // Ou "Desconhecida" se não corresponder a nenhuma
+    }
+
+
 
 }

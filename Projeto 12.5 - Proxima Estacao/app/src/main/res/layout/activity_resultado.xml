@@ -69,29 +69,60 @@
             android:orientation="vertical">
 
             <com.androidplot.pie.PieChart
-                android:id="@+id/ptOrigem"
+                android:id="@+id/ptComTotal"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
                 android:layout_marginTop="20dp"
+                android:background="@android:color/white"
                 android:layout_marginEnd="0dp"
                 app:borderThickness="2dp" />
 
             <com.androidplot.pie.PieChart
-                android:id="@+id/ptTotal"
+                android:id="@+id/ptPorEstacao"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
                 android:layout_marginTop="20dp"
+                android:background="@android:color/white"
                 android:layout_marginEnd="0dp"
                 app:borderThickness="2dp" />
 
-            <com.androidplot.pie.PieChart
-                android:id="@+id/ptDestino"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="0dp"
-                app:borderThickness="2dp" />
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/btTodos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="250dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="#363436"
+        android:text="Todos"
+        app:cornerRadius="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/ltPercurso"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btOrigem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:backgroundTint="#363436"
+        android:text="Origens"
+        app:cornerRadius="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toStartOf="@+id/btDestino"
+        app:layout_constraintStart_toEndOf="@+id/btTodos" />
+
+    <Button
+        android:id="@+id/btDestino"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="250dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="#363436"
+        android:text="Destinos"
+        app:cornerRadius="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -255,18 +255,25 @@ public class PercursoDAO { // <<<< NÃO ESTENDE MAIS SQLiteOpenHelper
         return resultado;
     }
 
-    public int consultarContagemPercurso() {
+    public List<PercursoModel> consultarContagemPercurso() {
         int contagem = 0;
         Cursor cursor = null;
+        List<PercursoModel> percursos = new ArrayList<>();
 
-        String query = "SELECT COUNT(*) FROM " + TABELA_PERCURSO;
+        String query = "SELECT " + COLUNA_ORIGEM + ", " + COLUNA_DESTINO + ", COUNT(*) FROM " + TABELA_PERCURSO + " GROUP BY " + COLUNA_ORIGEM;
 
         try {
             open();
             cursor = database.rawQuery(query, null);
             if (cursor != null && cursor.moveToFirst()) {
-                contagem = cursor.getInt(0);
-                Log.d("PercursoDAO", "Contagem total de percursos: " + contagem);
+                do {
+                    PercursoModel percurso = new PercursoModel();
+                    percurso.setOrigem(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_ORIGEM)));
+                    percurso.setDestino(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_DESTINO)));
+                    percurso.setContagem(cursor.getInt(cursor.getColumnIndexOrThrow("COUNT(*)")));
+                    Log.d("PercursoDAO", "Contagem total de percursos: " + contagem);
+                    percursos.add(percurso);
+                } while (cursor.moveToNext());
             }
         } catch (Exception e) {
             Log.e("PercursoDAO", "Erro ao consultar contagem de percurso: " + e.getMessage());
@@ -277,7 +284,7 @@ public class PercursoDAO { // <<<< NÃO ESTENDE MAIS SQLiteOpenHelper
             }
             close();
         }
-        return contagem;
+        return percursos;
     }
 
     public int consultarContagemPercursoEspecífico(int id) {
@@ -306,29 +313,57 @@ public class PercursoDAO { // <<<< NÃO ESTENDE MAIS SQLiteOpenHelper
         return contagem;
     }
 
-    public int consultarContagemOrigem() {
-        int contagem = 0;
+    public List<PercursoModel> consultarContagemOrigem() {
+        List<PercursoModel> origensComContagem = new ArrayList<>();
         Cursor cursor = null;
 
-        String query = "SELECT COUNT(" + COLUNA_ORIGEM + ") FROM " + TABELA_PERCURSO;
+        // A query SQL agora agrupa por origem e conta quantas vezes cada origem aparece.
+        // Use um alias para a coluna COUNT(*) para facilitar a recuperação.
+        String query = "SELECT " + COLUNA_ORIGEM + ", COUNT(*) AS total_ocorrencias_origem " +
+                "FROM " + TABELA_PERCURSO +
+                " GROUP BY " + COLUNA_ORIGEM;
 
         try {
-            open();
+            open(); // Abre a conexão com o banco de dados
+
             cursor = database.rawQuery(query, null);
-            if (cursor != null && cursor.moveToFirst()) {
-                contagem = cursor.getInt(0);
-                Log.d("PercursoDAO", "Contagem de origens: " + contagem);
+
+            if (cursor != null) {
+                Log.d("PercursoDAO", "Cursor obtido para consultarContagemOrigem. Contagem de linhas: " + cursor.getCount());
+                if (cursor.moveToFirst()) {
+                    do {
+                        // Crie um novo PercursoModel para cada resultado agrupado
+                        PercursoModel percurso = new PercursoModel();
+
+                        // Obtenha o nome da origem
+                        int origemIndex = cursor.getColumnIndexOrThrow(COLUNA_ORIGEM);
+                        percurso.setOrigem(cursor.getString(origemIndex));
+
+                        // Obtenha a contagem usando o alias definido na query
+                        int countIndex = cursor.getColumnIndexOrThrow("total_ocorrencias_origem");
+                        percurso.setContagem(cursor.getInt(countIndex));
+
+                        origensComContagem.add(percurso);
+                        Log.d("PercursoDAO", "Origem: " + percurso.getOrigem() + ", Contagem: " + percurso.getContagem());
+                    } while (cursor.moveToNext());
+                } else {
+                    Log.d("PercursoDAO", "Nenhum dado de contagem de origem encontrado.");
+                }
+            } else {
+                Log.e("PercursoDAO", "Cursor é nulo em consultarContagemOrigem. Erro na query.");
             }
         } catch (Exception e) {
-            Log.e("PercursoDAO", "Erro ao consultar contagem de origem: " + e.getMessage());
+            Log.e("PercursoDAO", "Erro ao consultar contagem de origem: " + e.getMessage(), e);
             e.printStackTrace();
         } finally {
             if (cursor != null && !cursor.isClosed()) {
                 cursor.close();
+                Log.d("PercursoDAO", "Cursor fechado em consultarContagemOrigem.");
             }
-            close();
+            close(); // Garante que a conexão seja fechada
+            Log.d("PercursoDAO", "Conexão fechada. Total de origens com contagem retornadas: " + origensComContagem.size());
         }
-        return contagem;
+        return origensComContagem;
     }
 
     public int consultarContagemOrigemAzul() {
@@ -433,29 +468,63 @@ public class PercursoDAO { // <<<< NÃO ESTENDE MAIS SQLiteOpenHelper
         return contagem;
     }
 
-    public int consultarContagemDestino() {
-        int contagem = 0;
+    public List<PercursoModel> consultarContagemDestino() {
+        List<PercursoModel> destinosComContagem = new ArrayList<>();
         Cursor cursor = null;
 
-        String query = "SELECT COUNT(" + COLUNA_DESTINO + ") FROM " + TABELA_PERCURSO;
+        // A query SQL agora agrupa por destino e conta quantas vezes cada destino aparece.
+        // Usamos um alias para a coluna COUNT(*) para facilitar a recuperação,
+        // e NÃO incluímos a cláusula ORDER BY.
+        String query = "SELECT " + COLUNA_DESTINO + ", COUNT(*) AS total_ocorrencias_destino " +
+                "FROM " + TABELA_PERCURSO +
+                " GROUP BY " + COLUNA_DESTINO + ";"; // Sem ORDER BY aqui
 
         try {
-            open();
+            open(); // Abre a conexão com o banco de dados
+            // Verifica se o banco de dados está aberto antes de tentar a rawQuery
+            if (database == null || !database.isOpen()) {
+                Log.e("PercursoDAO", "Banco de dados não está aberto ou é nulo ao consultarContagemDestino.");
+                return destinosComContagem; // Retorna lista vazia se o banco não está pronto
+            }
+
             cursor = database.rawQuery(query, null);
-            if (cursor != null && cursor.moveToFirst()) {
-                contagem = cursor.getInt(0);
-                Log.d("PercursoDAO", "Contagem de destinos: " + contagem);
+
+            if (cursor != null) {
+                Log.d("PercursoDAO", "Cursor obtido para consultarContagemDestino. Contagem de linhas: " + cursor.getCount());
+                if (cursor.moveToFirst()) {
+                    do {
+                        // Crie um novo PercursoModel para cada resultado agrupado
+                        PercursoModel percurso = new PercursoModel();
+
+                        // Obtenha o nome do destino
+                        int destinoIndex = cursor.getColumnIndexOrThrow(COLUNA_DESTINO);
+                        percurso.setDestino(cursor.getString(destinoIndex));
+
+                        // Obtenha a contagem usando o alias definido na query
+                        int countIndex = cursor.getColumnIndexOrThrow("total_ocorrencias_destino");
+                        percurso.setContagem(cursor.getInt(countIndex));
+
+                        destinosComContagem.add(percurso);
+                        Log.d("PercursoDAO", "Destino: " + percurso.getDestino() + ", Contagem: " + percurso.getContagem());
+                    } while (cursor.moveToNext());
+                } else {
+                    Log.d("PercursoDAO", "Nenhum dado de contagem de destino encontrado.");
+                }
+            } else {
+                Log.e("PercursoDAO", "Cursor é nulo em consultarContagemDestino. Erro na query.");
             }
         } catch (Exception e) {
-            Log.e("PercursoDAO", "Erro ao consultar contagem de destino: " + e.getMessage());
+            Log.e("PercursoDAO", "Erro ao consultar contagem de destino: " + e.getMessage(), e);
             e.printStackTrace();
         } finally {
             if (cursor != null && !cursor.isClosed()) {
                 cursor.close();
+                Log.d("PercursoDAO", "Cursor fechado em consultarContagemDestino.");
             }
-            close();
+            close(); // Garante que a conexão seja fechada
+            Log.d("PercursoDAO", "Conexão fechada. Total de destinos com contagem retornadas: " + destinosComContagem.size());
         }
-        return contagem;
+        return destinosComContagem;
     }
 
     public int consultarContagemDestinoAzul() {
@@ -558,5 +627,27 @@ public class PercursoDAO { // <<<< NÃO ESTENDE MAIS SQLiteOpenHelper
             close();
         }
         return contagem;
+    }
+
+    public int getContagemTotalPercursos() {
+        int total = 0;
+        open(); // Abre a conexão com o banco de dados
+        Cursor cursor = null;
+        try {
+            // Consulta SQL para contar todas as linhas na tabela de percursos
+            cursor = database.rawQuery("SELECT COUNT(*) FROM " + TABELA_PERCURSO, null); // Use o nome real da sua tabela de percursos, ex: DatabaseHelper.TABLE_PERCURSOS
+
+            if (cursor.moveToFirst()) {
+                total = cursor.getInt(0); // A contagem estará na primeira coluna (índice 0)
+            }
+        } catch (Exception e) {
+            Log.e("PercursoDAO", "Erro ao obter a contagem total de percursos: " + e.getMessage());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            close(); // Fecha a conexão com o banco de dados
+        }
+        return total;
     }
 }
